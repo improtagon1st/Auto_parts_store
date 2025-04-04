@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="32695cdbe6244beaa52ac8420f17648f" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="AutoPartsStoreModel.AutoParts" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.CarModels" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.Categories" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.Inventory" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.PurchaseOrderDetails" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.PurchaseOrders" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.Roles" Width="1.5" PointX="1.5" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.Sales" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.SalesDetails" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.Suppliers" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoPartsStoreModel.Users" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__AutoParts__Categ__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__Inventory__PartI__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__PurchaseO__PartI__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__SalesDeta__PartI__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK_AutoParts_CarModels" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__PurchaseO__Purch__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__PurchaseO__Suppl__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK_PurchaseOrders_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__Users__RoleID__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__Sales__UserID__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="AutoPartsStoreModel.FK__SalesDeta__SaleI__4D94879B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

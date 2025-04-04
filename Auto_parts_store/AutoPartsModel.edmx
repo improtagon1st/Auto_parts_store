@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AutoPartsStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AutoParts">
+          <Key>
+            <PropertyRef Name="PartID" />
+          </Key>
+          <Property Name="PartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StockQuantity" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="CarModelID" Type="int" />
+        </EntityType>
+        <EntityType Name="CarModels">
+          <Key>
+            <PropertyRef Name="CarModelID" />
+          </Key>
+          <Property Name="CarModelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Make" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BodyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="EngineType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Generation" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartID" Type="int" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="LastUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDetails">
+          <Key>
+            <PropertyRef Name="PurchaseOrderDetailID" />
+          </Key>
+          <Property Name="PurchaseOrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseOrderID" Type="int" />
+          <Property Name="PartID" Type="int" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseOrders">
+          <Key>
+            <PropertyRef Name="PurchaseOrderID" />
+          </Key>
+          <Property Name="PurchaseOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleDate" Type="datetime" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="SalesDetails">
+          <Key>
+            <PropertyRef Name="SalesDetailID" />
+          </Key>
+          <Property Name="SalesDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleID" Type="int" />
+          <Property Name="PartID" Type="int" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupplierName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__AutoParts__Categ__3F466844">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="AutoParts">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventory__PartI__5165187F">
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="0..1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoParts">
+              <PropertyRef Name="PartID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="PartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PurchaseO__PartI__47DBAE45">
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="0..1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoParts">
+              <PropertyRef Name="PartID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="PartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PurchaseO__Purch__46E78A0C">
+          <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="0..1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrders">
+              <PropertyRef Name="PurchaseOrderID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="PurchaseOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PurchaseO__Suppl__440B1D61">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="PurchaseOrders">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales__UserID__4AB81AF0">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesDeta__PartI__4E88ABD4">
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="0..1" />
+          <End Role="SalesDetails" Type="Self.SalesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoParts">
+              <PropertyRef Name="PartID" />
+            </Principal>
+            <Dependent Role="SalesDetails">
+              <PropertyRef Name="PartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesDeta__SaleI__4D94879B">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="0..1" />
+          <End Role="SalesDetails" Type="Self.SalesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="SalesDetails">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__3A81B327">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoParts_CarModels">
+          <End Role="CarModels" Type="Self.CarModels" Multiplicity="0..1" />
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarModels">
+              <PropertyRef Name="CarModelID" />
+            </Principal>
+            <Dependent Role="AutoParts">
+              <PropertyRef Name="CarModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrders_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="PurchaseOrders">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AutoPartsStoreModelContainer">
+          <EntitySet Name="AutoParts" EntityType="Self.AutoParts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarModels" EntityType="Self.CarModels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesDetails" EntityType="Self.SalesDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AutoParts__Categ__3F466844" Association="Self.FK__AutoParts__Categ__3F466844">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="AutoParts" EntitySet="AutoParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventory__PartI__5165187F" Association="Self.FK__Inventory__PartI__5165187F">
+            <End Role="AutoParts" EntitySet="AutoParts" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PurchaseO__PartI__47DBAE45" Association="Self.FK__PurchaseO__PartI__47DBAE45">
+            <End Role="AutoParts" EntitySet="AutoParts" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PurchaseO__Purch__46E78A0C" Association="Self.FK__PurchaseO__Purch__46E78A0C">
+            <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PurchaseO__Suppl__440B1D61" Association="Self.FK__PurchaseO__Suppl__440B1D61">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales__UserID__4AB81AF0" Association="Self.FK__Sales__UserID__4AB81AF0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesDeta__PartI__4E88ABD4" Association="Self.FK__SalesDeta__PartI__4E88ABD4">
+            <End Role="AutoParts" EntitySet="AutoParts" />
+            <End Role="SalesDetails" EntitySet="SalesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesDeta__SaleI__4D94879B" Association="Self.FK__SalesDeta__SaleI__4D94879B">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SalesDetails" EntitySet="SalesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__3A81B327" Association="Self.FK__Users__RoleID__3A81B327">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoParts_CarModels" Association="Self.FK_AutoParts_CarModels">
+            <End Role="CarModels" EntitySet="CarModels" />
+            <End Role="AutoParts" EntitySet="AutoParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrders_Suppliers" Association="Self.FK_PurchaseOrders_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AutoPartsStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AutoParts">
+          <Key>
+            <PropertyRef Name="PartID" />
+          </Key>
+          <Property Name="PartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="StockQuantity" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CarModelID" Type="Int32" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK__AutoParts__Categ__3F466844" FromRole="AutoParts" ToRole="Categories" />
+          <NavigationProperty Name="Inventory" Relationship="Self.FK__Inventory__PartI__5165187F" FromRole="AutoParts" ToRole="Inventory" />
+          <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK__PurchaseO__PartI__47DBAE45" FromRole="AutoParts" ToRole="PurchaseOrderDetails" />
+          <NavigationProperty Name="SalesDetails" Relationship="Self.FK__SalesDeta__PartI__4E88ABD4" FromRole="AutoParts" ToRole="SalesDetails" />
+          <NavigationProperty Name="CarModels" Relationship="Self.FK_AutoParts_CarModels" FromRole="AutoParts" ToRole="CarModels" />
+        </EntityType>
+        <EntityType Name="CarModels">
+          <Key>
+            <PropertyRef Name="CarModelID" />
+          </Key>
+          <Property Name="CarModelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Make" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EngineType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Generation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AutoParts" Relationship="Self.FK_AutoParts_CarModels" FromRole="CarModels" ToRole="AutoParts" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AutoParts" Relationship="Self.FK__AutoParts__Categ__3F466844" FromRole="Categories" ToRole="AutoParts" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AutoParts" Relationship="Self.FK__Inventory__PartI__5165187F" FromRole="Inventory" ToRole="AutoParts" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDetails">
+          <Key>
+            <PropertyRef Name="PurchaseOrderDetailID" />
+          </Key>
+          <Property Name="PurchaseOrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseOrderID" Type="Int32" />
+          <Property Name="PartID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="AutoParts" Relationship="Self.FK__PurchaseO__PartI__47DBAE45" FromRole="PurchaseOrderDetails" ToRole="AutoParts" />
+          <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK__PurchaseO__Purch__46E78A0C" FromRole="PurchaseOrderDetails" ToRole="PurchaseOrders" />
+        </EntityType>
+        <EntityType Name="PurchaseOrders">
+          <Key>
+            <PropertyRef Name="PurchaseOrderID" />
+          </Key>
+          <Property Name="PurchaseOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK__PurchaseO__Purch__46E78A0C" FromRole="PurchaseOrders" ToRole="PurchaseOrderDetails" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK__PurchaseO__Suppl__440B1D61" FromRole="PurchaseOrders" ToRole="Suppliers" />
+          <NavigationProperty Name="Suppliers1" Relationship="Self.FK_PurchaseOrders_Suppliers" FromRole="PurchaseOrders" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleID__3A81B327" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Sales__UserID__4AB81AF0" FromRole="Sales" ToRole="Users" />
+          <NavigationProperty Name="SalesDetails" Relationship="Self.FK__SalesDeta__SaleI__4D94879B" FromRole="Sales" ToRole="SalesDetails" />
+        </EntityType>
+        <EntityType Name="SalesDetails">
+          <Key>
+            <PropertyRef Name="SalesDetailID" />
+          </Key>
+          <Property Name="SalesDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleID" Type="Int32" />
+          <Property Name="PartID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="AutoParts" Relationship="Self.FK__SalesDeta__PartI__4E88ABD4" FromRole="SalesDetails" ToRole="AutoParts" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK__SalesDeta__SaleI__4D94879B" FromRole="SalesDetails" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK__PurchaseO__Suppl__440B1D61" FromRole="Suppliers" ToRole="PurchaseOrders" />
+          <NavigationProperty Name="PurchaseOrders1" Relationship="Self.FK_PurchaseOrders_Suppliers" FromRole="Suppliers" ToRole="PurchaseOrders" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK__Users__RoleID__3A81B327" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK__Sales__UserID__4AB81AF0" FromRole="Users" ToRole="Sales" />
+        </EntityType>
+        <Association Name="FK__AutoParts__Categ__3F466844">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="AutoParts">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventory__PartI__5165187F">
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="0..1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoParts">
+              <PropertyRef Name="PartID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="PartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PurchaseO__PartI__47DBAE45">
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="0..1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoParts">
+              <PropertyRef Name="PartID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="PartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesDeta__PartI__4E88ABD4">
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="0..1" />
+          <End Role="SalesDetails" Type="Self.SalesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoParts">
+              <PropertyRef Name="PartID" />
+            </Principal>
+            <Dependent Role="SalesDetails">
+              <PropertyRef Name="PartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoParts_CarModels">
+          <End Role="CarModels" Type="Self.CarModels" Multiplicity="0..1" />
+          <End Role="AutoParts" Type="Self.AutoParts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarModels">
+              <PropertyRef Name="CarModelID" />
+            </Principal>
+            <Dependent Role="AutoParts">
+              <PropertyRef Name="CarModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PurchaseO__Purch__46E78A0C">
+          <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="0..1" />
+          <End Role="PurchaseOrderDetails" Type="Self.PurchaseOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrders">
+              <PropertyRef Name="PurchaseOrderID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDetails">
+              <PropertyRef Name="PurchaseOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PurchaseO__Suppl__440B1D61">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="PurchaseOrders">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrders_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="PurchaseOrders">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__3A81B327">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales__UserID__4AB81AF0">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SalesDeta__SaleI__4D94879B">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="0..1" />
+          <End Role="SalesDetails" Type="Self.SalesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="SalesDetails">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AutoPartsStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AutoParts" EntityType="Self.AutoParts" />
+          <EntitySet Name="CarModels" EntityType="Self.CarModels" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" />
+          <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetails" />
+          <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrders" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" />
+          <EntitySet Name="SalesDetails" EntityType="Self.SalesDetails" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__AutoParts__Categ__3F466844" Association="Self.FK__AutoParts__Categ__3F466844">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="AutoParts" EntitySet="AutoParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventory__PartI__5165187F" Association="Self.FK__Inventory__PartI__5165187F">
+            <End Role="AutoParts" EntitySet="AutoParts" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PurchaseO__PartI__47DBAE45" Association="Self.FK__PurchaseO__PartI__47DBAE45">
+            <End Role="AutoParts" EntitySet="AutoParts" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesDeta__PartI__4E88ABD4" Association="Self.FK__SalesDeta__PartI__4E88ABD4">
+            <End Role="AutoParts" EntitySet="AutoParts" />
+            <End Role="SalesDetails" EntitySet="SalesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoParts_CarModels" Association="Self.FK_AutoParts_CarModels">
+            <End Role="CarModels" EntitySet="CarModels" />
+            <End Role="AutoParts" EntitySet="AutoParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PurchaseO__Purch__46E78A0C" Association="Self.FK__PurchaseO__Purch__46E78A0C">
+            <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+            <End Role="PurchaseOrderDetails" EntitySet="PurchaseOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PurchaseO__Suppl__440B1D61" Association="Self.FK__PurchaseO__Suppl__440B1D61">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrders_Suppliers" Association="Self.FK_PurchaseOrders_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__3A81B327" Association="Self.FK__Users__RoleID__3A81B327">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales__UserID__4AB81AF0" Association="Self.FK__Sales__UserID__4AB81AF0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SalesDeta__SaleI__4D94879B" Association="Self.FK__SalesDeta__SaleI__4D94879B">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SalesDetails" EntitySet="SalesDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AutoPartsStoreModelContainer" CdmEntityContainer="AutoPartsStoreEntities">
+          <EntitySetMapping Name="AutoParts">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.AutoParts">
+              <MappingFragment StoreEntitySet="AutoParts">
+                <ScalarProperty Name="PartID" ColumnName="PartID" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CarModelID" ColumnName="CarModelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarModels">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.CarModels">
+              <MappingFragment StoreEntitySet="CarModels">
+                <ScalarProperty Name="CarModelID" ColumnName="CarModelID" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="BodyType" ColumnName="BodyType" />
+                <ScalarProperty Name="EngineType" ColumnName="EngineType" />
+                <ScalarProperty Name="Generation" ColumnName="Generation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventory">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+                <ScalarProperty Name="PartID" ColumnName="PartID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrderDetails">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.PurchaseOrderDetails">
+              <MappingFragment StoreEntitySet="PurchaseOrderDetails">
+                <ScalarProperty Name="PurchaseOrderDetailID" ColumnName="PurchaseOrderDetailID" />
+                <ScalarProperty Name="PurchaseOrderID" ColumnName="PurchaseOrderID" />
+                <ScalarProperty Name="PartID" ColumnName="PartID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrders">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.PurchaseOrders">
+              <MappingFragment StoreEntitySet="PurchaseOrders">
+                <ScalarProperty Name="PurchaseOrderID" ColumnName="PurchaseOrderID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.Sales">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesDetails">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.SalesDetails">
+              <MappingFragment StoreEntitySet="SalesDetails">
+                <ScalarProperty Name="SalesDetailID" ColumnName="SalesDetailID" />
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="PartID" ColumnName="PartID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AutoPartsStoreModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
