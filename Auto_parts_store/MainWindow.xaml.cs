@@ -24,12 +24,12 @@ namespace Auto_parts_store
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new LoginPage(this));
+            NavigateTo(new LoginPage(this));
 
         }
         public void NavigateTo(Page page)
         {
-            MainFrame.Navigate(page);
+            this.Content = page;
         }
 
         private void MainFrame_Navigated(object sender, NavigationEventArgs e)

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Auto_parts_store;
 
 namespace Auto_parts_store
 {
@@ -28,49 +29,55 @@ namespace Auto_parts_store
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string login = usernameTextBox.Text.Trim();
-            string password = passwordBox.Password.Trim();
+            string username = usernameTextBox.Text; // Логин теперь называется Username
+            string password = passwordBox.Password;
 
-            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password) ||
-                login == usernameTextBox.Tag.ToString() || password == passwordBox.Tag.ToString())
+            // Вычисляем хеш пароля в C# перед запросом в базу данных
+            string hashedPassword = HashHelper.GetHash(password);
+
+            try
             {
-                MessageBox.Show("Введите логин и пароль.");
-                return;
+                using (var db = new AutoPartsStoreEntities()) // Используем AutoPartsStoreEntities
+                {
+                    // Теперь выполняем запрос с уже вычисленным хешем пароля
+                    var user = db.Users.Include("Roles")
+                                       .FirstOrDefault(u => u.Username == username && u.PasswordHash == hashedPassword);
+
+                    if (user != null)
+                    {
+                        // Авторизация успешна, переход в зависимости от роли
+                        switch (user.Roles.RoleName)
+                        {
+                            case "Administrator":
+                                _mainWindow.NavigateTo(new AdminPage(_mainWindow, user)); // Переход на страницу администратора
+                                break;
+                            case "Manager":
+                                // Ваш код для менеджера
+                                break;
+                            case "Cashier":
+                                // Ваш код для кассира
+                                break;
+                            case "Client":
+                                // Ваш код для клиента
+                                break;
+                            default:
+                                MessageBox.Show("Неизвестная роль пользователя");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неверный логин или пароль!");
+                    }
+                }
             }
-
-            string hashed = HashHelper.GetHash(password);
-
-            using (var db = new AutoPartsStoreEntities())
+            catch (Exception ex)
             {
-                var user = db.Users.Include("Roles").FirstOrDefault(u =>
-                    u.Username == login && u.PasswordHash == hashed);
-
-                if (user == null)
-                {
-                    MessageBox.Show("Неверный логин или пароль.");
-                    return;
-                }
-
-                switch (user.Roles.RoleName)
-                {
-                    case "Admin":
-                        
-                        break;
-                    case "Manager":
-                        
-                        break;
-                    case "Cashier":
-                       
-                        break;
-                    case "Client":
-                        
-                        break;
-                    default:
-                        MessageBox.Show("Неизвестная роль.");
-                        break;
-                }
+                MessageBox.Show($"Ошибка при подключении к базе данных: {ex.Message}");
             }
         }
+
+
 
         private void RegisterLabel_Click(object sender, MouseButtonEventArgs e)
         {
