@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace Auto_parts_store
 {
@@ -29,16 +30,90 @@ namespace Auto_parts_store
             InitializeComponent();
             _mainWindow = mainWindow;
             _cashier = cashier;
+
+            LoadCarMakes();
             LoadParts();
             UpdateCartDisplay();
+        }
+
+        private void LoadCarMakes()
+        {
+            using (var db = new AutoPartsStoreEntities())
+            {
+                CarMakeComboBox.ItemsSource = db.CarModels
+                    .Select(c => c.Make)
+                    .Distinct()
+                    .OrderBy(m => m)
+                    .ToList();
+            }
         }
 
         private void LoadParts()
         {
             using (var db = new AutoPartsStoreEntities())
             {
-                PartsDataGrid.ItemsSource = db.AutoParts.Where(p => p.StockQuantity > 0).ToList();
+                var parts = db.AutoParts
+                    .Include(p => p.CarModels)
+                    .Where(p => p.StockQuantity > 0)
+                    .ToList();
+
+                PartsDataGrid.ItemsSource = parts;
             }
+        }
+
+        private void ApplyFilters()
+        {
+            using (var db = new AutoPartsStoreEntities())
+            {
+                var query = db.AutoParts
+                    .Include(p => p.CarModels)
+                    .Where(p => p.StockQuantity > 0);
+
+                if (CarMakeComboBox.SelectedItem is string make)
+                {
+                    query = query.Where(p => p.CarModels.Make == make);
+                }
+
+                PartsDataGrid.ItemsSource = query.ToList();
+            }
+        }
+
+        private void CarMakeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void SearchByIdButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(PartIdSearchBox.Text, out int partId))
+            {
+                using (var db = new AutoPartsStoreEntities())
+                {
+                    var part = db.AutoParts
+                        .Include(p => p.CarModels)
+                        .FirstOrDefault(p => p.PartID == partId);
+
+                    if (part != null)
+                    {
+                        PartsDataGrid.ItemsSource = new List<AutoParts> { part };
+                    }
+                    else
+                    {
+                        MessageBox.Show("Запчасть с таким ID не найдена.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите корректный ID.");
+            }
+        }
+
+        private void ResetFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            CarMakeComboBox.SelectedIndex = -1;
+            PartIdSearchBox.Clear();
+            LoadParts();
         }
 
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
@@ -79,7 +154,8 @@ namespace Auto_parts_store
                     PartID = selectedPart.PartID,
                     PartName = selectedPart.PartName,
                     Price = selectedPart.Price,
-                    Quantity = quantity
+                    Quantity = quantity,
+                    Make = selectedPart.CarModels?.Make
                 });
             }
 
@@ -151,6 +227,7 @@ namespace Auto_parts_store
             public string PartName { get; set; }
             public decimal Price { get; set; }
             public int Quantity { get; set; }
+            public string Make { get; set; } 
             public decimal Total => Price * Quantity;
         }
     }

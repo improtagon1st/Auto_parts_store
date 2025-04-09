@@ -3,36 +3,70 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:Auto_parts_store"
       Title="CashierPage">
-
-    <Grid Background="#F5F5F5" Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Background="#F5F5F5" Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1.2*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Список запчастей -->
+        <!-- Левая часть: фильтры, поиск и таблица запчастей -->
         <StackPanel Grid.Column="0">
+
             <TextBlock Text="Ассортимент автозапчастей"
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="#3F51B5"
                        Margin="10"/>
 
+            <!-- Фильтр по марке и поиск по ID -->
+            <WrapPanel Margin="10">
+                <StackPanel Margin="0,0,20,0">
+                    <TextBlock Text="Марка авто:" Style="{StaticResource LabelStyle}"/>
+                    <ComboBox x:Name="CarMakeComboBox"
+                              Width="160"
+                              SelectionChanged="CarMakeComboBox_SelectionChanged"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Поиск по ID:" Style="{StaticResource LabelStyle}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="PartIdSearchBox" Width="100"/>
+                        <Button Content="Найти"
+                                Style="{StaticResource CustomButtonStyle}"
+                                Margin="10,0,0,0"
+                                Click="SearchByIdButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Content="Сбросить"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Margin="20,25,0,0"
+                        Width="100"
+                        Click="ResetFilterButton_Click"/>
+            </WrapPanel>
+
+            <!-- Таблица запчастей -->
             <DataGrid x:Name="PartsDataGrid"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       IsReadOnly="True"
                       Margin="10"
                       SelectionMode="Single"
-                      Height="400">
+                      Height="360">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding PartID}" Width="50"/>
                     <DataGridTextColumn Header="Название" Binding="{Binding PartName}" Width="*"/>
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="100"/>
-                    <DataGridTextColumn Header="В наличии" Binding="{Binding StockQuantity}" Width="100"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
+                    <DataGridTextColumn Header="В наличии" Binding="{Binding StockQuantity}" Width="80"/>
+                    <DataGridTextColumn Header="Марка" Binding="{Binding CarModels.Make}" Width="*"/>
+                    <DataGridTextColumn Header="Модель" Binding="{Binding CarModels.Model}" Width="*"/>
+                    <DataGridTextColumn Header="Поколение" Binding="{Binding CarModels.Generation}" Width="*"/>
+                    <DataGridTextColumn Header="Двигатель" Binding="{Binding CarModels.EngineType}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
+            <!-- Количество и добавление в корзину -->
             <StackPanel Orientation="Horizontal" Margin="10">
                 <TextBlock Text="Количество:" VerticalAlignment="Center" Margin="0,0,10,0" Style="{StaticResource LabelStyle}"/>
                 <TextBox x:Name="QuantityTextBox" Width="100"/>
@@ -40,10 +74,19 @@
                         Style="{StaticResource CustomButtonStyle}"
                         Margin="10,0,0,0"
                         Click="AddToCartButton_Click"/>
+                
             </StackPanel>
-        </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Button Content=" Выйти"
+         Style="{StaticResource CustomButtonStyle}"
+         Width="120"
+         Margin="10,0,0,0"
 
-        <!-- Корзина и оформление -->
+         Click="BackButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+
+        <!-- Правая часть: корзина и оформление -->
         <StackPanel Grid.Column="1" Margin="20,0,0,0">
             <TextBlock Text="Корзина"
                        FontSize="20"
@@ -52,19 +95,18 @@
                        Margin="0,0,0,10"/>
 
             <DataGrid x:Name="CartDataGrid"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      IsReadOnly="True"
-                      Height="300"
-                      Margin="0,0,0,10">
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          IsReadOnly="True"
+          Height="300"
+          Margin="0,0,0,10">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding PartID}" Width="60"/>
                     <DataGridTextColumn Header="Название" Binding="{Binding PartName}" Width="*"/>
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
-                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="60"/>
-                    <DataGridTextColumn Header="Сумма" Binding="{Binding Total}" Width="80"/>
+                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="70"/>
+                    <DataGridTextColumn Header="Марка" Binding="{Binding Make}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-
             <StackPanel Margin="0,10,0,0">
                 <TextBlock Text="Итого:" FontSize="16"/>
                 <TextBlock x:Name="TotalTextBlock"
@@ -80,11 +122,8 @@
                     Margin="0,20,0,0"
                     Click="CompleteSaleButton_Click"/>
 
-            <Button Content="← Назад"
-                    Style="{StaticResource CustomButtonStyle}"
-                    Width="120"
-                    Margin="0,10,0,0"
-                    Click="BackButton_Click"/>
+          
         </StackPanel>
     </Grid>
+        </ScrollViewer>
 </Page>
