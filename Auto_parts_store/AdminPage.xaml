@@ -117,7 +117,7 @@
                 </TabItem>
             </TabControl>
 
-            <!-- Кнопка Назад -->
+            
             <Button Content="← Выйти"
                     Style="{StaticResource CustomButtonStyle}"
                     Width="120"

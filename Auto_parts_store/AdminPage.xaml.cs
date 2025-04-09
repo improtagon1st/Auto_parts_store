@@ -20,8 +20,9 @@ namespace Auto_parts_store
     /// </summary>
     public partial class AdminPage : Page
     {
-        private MainWindow _mainWindow;
         private Users _user;
+        private MainWindow _mainWindow;
+    
 
         public AdminPage(MainWindow mainWindow, Users user)
         {
@@ -82,7 +83,7 @@ namespace Auto_parts_store
 
         private void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
-           // _mainWindow.NavigateTo(new AddEmployeePage(_mainWindow));
+            _mainWindow.NavigateTo(new AddEmployeePage(_mainWindow, _user));
         }
     }
 }

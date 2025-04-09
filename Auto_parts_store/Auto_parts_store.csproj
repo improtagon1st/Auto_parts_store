@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddEmployeePage.xaml.cs">
+      <DependentUpon>AddEmployeePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
     <Compile Include="Users.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
+    <Page Include="AddEmployeePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
