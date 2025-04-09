@@ -49,13 +49,14 @@ namespace Auto_parts_store
                         switch (user.Roles.RoleName)
                         {
                             case "Administrator":
-                                _mainWindow.NavigateTo(new AdminPage(_mainWindow, user)); // Переход на страницу администратора
+                                _mainWindow.NavigateTo(new AdminPage(_mainWindow, user)); 
                                 break;
                             case "Manager":
-                                _mainWindow.NavigateTo(new CashierPage(_mainWindow, user)); // Переход на страницу администратора
+                                ;
+                                _mainWindow.NavigateTo(new ManagerPage(_mainWindow, user));
                                 break;
                             case "Cashier":
-                                // Ваш код для кассира
+                               _mainWindow.NavigateTo(new CashierPage(_mainWindow, user));
                                 break;
                             case "Client":
                                 // Ваш код для клиента

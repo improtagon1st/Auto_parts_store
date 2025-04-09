@@ -1,0 +1,64 @@
+﻿<Page x:Class="Auto_parts_store.ManagerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:Auto_parts_store"
+      Title="ManagerPage"
+      Background="#F5F5F5">
+
+    <ScrollViewer>
+        <StackPanel Margin="30" HorizontalAlignment="Center" Width="1000">
+            <TextBlock Text="Панель менеджера"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#3F51B5"
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center"/>
+
+            <TabControl Height="600">
+
+                <TabItem Header="Автозапчасти">
+                    <DataGrid x:Name="AutoPartsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Поставщики">
+                    <DataGrid x:Name="SuppliersDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Заказы">
+                    <DataGrid x:Name="OrdersDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Детали заказов">
+                    <DataGrid x:Name="OrderDetailsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Продажи">
+                    <DataGrid x:Name="SalesDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Детали продаж">
+                    <DataGrid x:Name="SalesDetailsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Категории">
+                    <DataGrid x:Name="CategoriesDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Модели авто">
+                    <DataGrid x:Name="CarModelsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+                <TabItem Header="Запасы">
+                    <DataGrid x:Name="InventoryDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </TabItem>
+
+            </TabControl>
+
+            <Button Content="← Выйти"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Width="150"
+                    Margin="0,20,0,0"
+                    Click="BackButton_Click"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
