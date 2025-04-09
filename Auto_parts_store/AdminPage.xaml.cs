@@ -22,17 +22,22 @@ namespace Auto_parts_store
     {
         private Users _user;
         private MainWindow _mainWindow;
-    
 
         public AdminPage(MainWindow mainWindow, Users user)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
             _user = user;
+
             LoadUsers();
             LoadAutoParts();
             LoadSuppliers();
             LoadOrders();
+            LoadOrderDetails();
+            LoadSales();
+            LoadSalesDetails();
+            LoadCategories();
+            LoadCarModels();
             LoadInventory();
         }
 
@@ -65,6 +70,46 @@ namespace Auto_parts_store
             using (var db = new AutoPartsStoreEntities())
             {
                 OrdersDataGrid.ItemsSource = db.PurchaseOrders.ToList();
+            }
+        }
+
+        private void LoadOrderDetails()
+        {
+            using (var db = new AutoPartsStoreEntities())
+            {
+                OrderDetailsDataGrid.ItemsSource = db.PurchaseOrderDetails.ToList();
+            }
+        }
+
+        private void LoadSales()
+        {
+            using (var db = new AutoPartsStoreEntities())
+            {
+                SalesDataGrid.ItemsSource = db.Sales.ToList();
+            }
+        }
+
+        private void LoadSalesDetails()
+        {
+            using (var db = new AutoPartsStoreEntities())
+            {
+                SalesDetailsDataGrid.ItemsSource = db.SalesDetails.ToList();
+            }
+        }
+
+        private void LoadCategories()
+        {
+            using (var db = new AutoPartsStoreEntities())
+            {
+                CategoriesDataGrid.ItemsSource = db.Categories.ToList();
+            }
+        }
+
+        private void LoadCarModels()
+        {
+            using (var db = new AutoPartsStoreEntities())
+            {
+                CarModelsDataGrid.ItemsSource = db.CarModels.ToList();
             }
         }
 

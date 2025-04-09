@@ -33,7 +33,7 @@
                 <TextBox x:Name="emailTextBox" Margin="0,10"/>
 
                 <Button Content="Добавить сотрудника" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Center" Margin="0,20,0,0" Click="AddEmployeeButton_Click"/>
-                <Button Content="← Назад" Style="{StaticResource CustomButtonStyle}" Width="120" HorizontalAlignment="Left" Margin="0,20,0,0" Click="BackButton_Click"/>
+                <Button Content="← Назад" Style="{StaticResource CustomButtonStyle}" Width="120" HorizontalAlignment="Center" Margin="0,20,0,0" Click="BackButton_Click"/>
             </StackPanel>
         </Border>
     </Grid>
