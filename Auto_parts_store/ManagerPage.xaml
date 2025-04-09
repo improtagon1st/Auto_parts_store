@@ -13,6 +13,11 @@
                        Foreground="#3F51B5"
                        Margin="0,0,0,20"
                        HorizontalAlignment="Center"/>
+            <Button Content="Редактирование автозапчастей"
+        Style="{StaticResource CustomButtonStyle}"
+        Width="200"
+        Margin="0,0,0,20"
+        Click="GoToProductsPage_Click"/>
 
             <TabControl Height="600">
 

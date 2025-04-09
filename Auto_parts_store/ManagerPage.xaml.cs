@@ -116,5 +116,11 @@ namespace Auto_parts_store
         {
             _mainWindow.NavigateTo(new LoginPage(_mainWindow));
         }
+
+        private void GoToProductsPage_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.NavigateTo(new ProductsPage(_mainWindow));
+
+        }
     }
 }

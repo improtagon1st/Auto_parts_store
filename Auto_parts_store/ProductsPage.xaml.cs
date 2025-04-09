@@ -24,18 +24,25 @@ namespace Auto_parts_store
     /// </summary>
     public partial class ProductsPage : Page
     {
-        public ProductsPage()
+        private MainWindow _mainWindow;
+
+        public ProductsPage(MainWindow mainWindow)
         {
             InitializeComponent();
+            _mainWindow = mainWindow;
             LoadParts();
+                
         }
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Visibility == Visibility.Visible)
             {
-                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(entry => entry.Reload());
-                LoadParts();
+                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+                PartsDataGrid.ItemsSource = Entities.GetContext().AutoParts
+                    .Include(p => p.Categories)
+                    .Include(p => p.CarModels)
+                    .ToList();
             }
         }
 
@@ -52,20 +59,24 @@ namespace Auto_parts_store
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddProductPage(null));
+            _mainWindow.NavigateTo(new AddProductPage(null));
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            // Проверка на выбранный элемент
             var selectedPart = PartsDataGrid.SelectedItem as AutoParts;
+
             if (selectedPart == null)
             {
-                MessageBox.Show("Выберите элемент для редактирования.");
-                return;
+                MessageBox.Show("Пожалуйста, выберите запчасть для редактирования.");
+                return;  // Прерываем выполнение, если элемент не выбран
             }
 
-            NavigationService.Navigate(new AddProductPage(selectedPart));
+            // Переход на страницу редактирования с выбранным элементом
+            _mainWindow.NavigateTo(new AddProductPage(selectedPart));  // Передаём выбранный элемент
         }
+
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
