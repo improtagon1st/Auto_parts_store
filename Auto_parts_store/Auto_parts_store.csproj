@@ -87,6 +87,7 @@
     <Compile Include="Categories.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities.cs" />
     <Compile Include="HashHelper.cs" />
     <Compile Include="Inventory.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
@@ -96,6 +97,9 @@
     </Compile>
     <Compile Include="ManagerPage.xaml.cs">
       <DependentUpon>ManagerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductsPage.xaml.cs">
+      <DependentUpon>ProductsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PurchaseOrderDetails.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
@@ -160,6 +164,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManagerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
