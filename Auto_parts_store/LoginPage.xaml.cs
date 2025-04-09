@@ -52,7 +52,7 @@ namespace Auto_parts_store
                                 _mainWindow.NavigateTo(new AdminPage(_mainWindow, user)); // Переход на страницу администратора
                                 break;
                             case "Manager":
-                                // Ваш код для менеджера
+                                _mainWindow.NavigateTo(new CashierPage(_mainWindow, user)); // Переход на страницу администратора
                                 break;
                             case "Cashier":
                                 // Ваш код для кассира
