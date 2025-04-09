@@ -169,5 +169,9 @@ namespace Auto_parts_store
             Regex regex = new Regex(@"[^0-9+]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.NavigateTo(new LoginPage(_mainWindow));
+        }
     }
 }

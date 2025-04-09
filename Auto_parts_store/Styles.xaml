@@ -1,0 +1,85 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Цвета -->
+    <Color x:Key="PrimaryColor">#FF3F51B5</Color>
+    <Color x:Key="AccentColor">#FF536DFE</Color>
+    <Color x:Key="LightGray">#FFECECEC</Color>
+
+    <!-- Кисти -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
+    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource LightGray}" />
+    <SolidColorBrush x:Key="WhiteBrush" Color="White" />
+
+    <!-- Стиль для кнопки -->
+    <Style x:Key="CustomButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="Margin" Value="0,15,0,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="MinWidth" Value="200"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="2" Color="Black" Opacity="0.2"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <DropShadowEffect x:Key="DropShadowEffect" BlurRadius="8" ShadowDepth="2" Color="Black" Opacity="0.2"/>
+    <!-- Стиль для TextBox -->
+    <Style TargetType="TextBox">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Margin" Value="0,5"/>
+        <Setter Property="BorderBrush" Value="#CCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="Black" Opacity="0.05"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Стиль для PasswordBox -->
+    <Style TargetType="PasswordBox">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Margin" Value="0,5"/>
+        <Setter Property="BorderBrush" Value="#CCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="Black" Opacity="0.05"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Стиль для TextBlock (заголовки) -->
+    <Style x:Key="LabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="Foreground" Value="#333"/>
+    </Style>
+
+</ResourceDictionary>
