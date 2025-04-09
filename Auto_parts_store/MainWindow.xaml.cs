@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace Auto_parts_store
 {
@@ -23,6 +24,17 @@ namespace Auto_parts_store
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new LoginPage(this));
+
+        }
+        public void NavigateTo(Page page)
+        {
+            MainFrame.Navigate(page);
+        }
+
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+
         }
     }
 }
