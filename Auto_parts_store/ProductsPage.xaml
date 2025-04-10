@@ -45,7 +45,13 @@
                 <Button Content="Удалить"
                         Style="{StaticResource CustomButtonStyle}"
                         Width="120"
+                        Margin="0,0,10,0"
                         Click="DeleteButton_Click"/>
+                <Button Content="← Назад"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Width="120"
+                        Margin="0,0,10,0"
+                        Click="BackButton_Click"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

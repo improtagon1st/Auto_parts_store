@@ -130,5 +130,9 @@ namespace Auto_parts_store
         {
             _mainWindow.NavigateTo(new AddEmployeePage(_mainWindow, _user));
         }
+        private void GoToProductsPage_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.NavigateTo(new ProductsPage(_mainWindow, _user));
+        }
     }
 }

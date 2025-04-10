@@ -24,15 +24,20 @@ namespace Auto_parts_store
     /// </summary>
     public partial class ProductsPage : Page
     {
-        private MainWindow _mainWindow;
 
-        public ProductsPage(MainWindow mainWindow)
+        private MainWindow _mainWindow;
+        private Users _currentUser;
+
+        public ProductsPage(MainWindow mainWindow, Users currentUser)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+            _currentUser = currentUser;
             LoadParts();
-                
+
+            PartsDataGrid.ItemsSource = Entities.GetContext().AutoParts.ToList();
         }
+        
 
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -77,6 +82,18 @@ namespace Auto_parts_store
             _mainWindow.NavigateTo(new AddProductPage(selectedPart));  // Передаём выбранный элемент
         }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentUser.RoleID == 1) // Админ
+            {
+                _mainWindow.NavigateTo(new AdminPage(_mainWindow, _currentUser));
+            }
+            else if (_currentUser.RoleID == 2) // Менеджер
+            {
+                _mainWindow.NavigateTo(new ManagerPage(_mainWindow, _currentUser));
+            }
+        }
+
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -102,6 +119,7 @@ namespace Auto_parts_store
                     MessageBox.Show("Ошибка при удалении: " + ex.Message);
                 }
             }
+
         }
     }
 }

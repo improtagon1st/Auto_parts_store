@@ -13,13 +13,21 @@
                        Foreground="#3F51B5"
                        Margin="0,0,0,20"
                        HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
+                <Button Content="Добавить сотрудника"
+            Style="{StaticResource CustomButtonStyle}"
+            Click="AddUserButton_Click"
+            Width="250"
+            Margin="0,0,10,0"/>
+            <!-- отступ справа -->
 
-            <Button Content="Добавить сотрудника"
-                    Style="{StaticResource CustomButtonStyle}"
-                    Click="AddUserButton_Click"
-                    Width="250"
-                    Margin="0,0,0,20"
-                    HorizontalAlignment="Left"/>
+            <Button Content="Редактирование автозапчастей"
+            Style="{StaticResource CustomButtonStyle}"
+            Click="GoToProductsPage_Click"
+            Width="250"
+            Margin="0,0,10,0"/>
+            </StackPanel>
+
 
             <TabControl Height="600">
 
