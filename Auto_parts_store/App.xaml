@@ -5,6 +5,10 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Конвертер пути к изображению -->
+            <local:ImagePathConverter x:Key="ImagePathConverter"/>
+
+            <!-- Подключение стилей -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

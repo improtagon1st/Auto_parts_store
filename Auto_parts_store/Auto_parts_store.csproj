@@ -240,9 +240,9 @@
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
       <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Images\Parts\ws7_4959.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Images\Parts\Hood_L494_Black.jpg" />
+    <Resource Include="Images\Parts\Front_Door_Right_L494_Black.jpg" />
+    <Resource Include="Images\Parts\Door_Front_Left_L494._Black.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

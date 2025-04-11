@@ -40,17 +40,20 @@
                     <DataTemplate>
                         <Border BorderBrush="#DDD" BorderThickness="1" Margin="5" Padding="10" CornerRadius="10">
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="120" Height="120"
-                                       Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
-                                       Stretch="UniformToFill"
-                                       Margin="0,0,10,0"/>
+                                <Image Width="120"
+       Height="120"
+       Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
+       Stretch="UniformToFill"
+       Margin="0,0,10,0"/>
+
 
                                 <StackPanel>
                                     <TextBlock Text="{Binding PartName}" FontSize="16" FontWeight="Bold"/>
                                     <TextBlock Text="{Binding Categories.CategoryName}" FontSize="14"/>
                                     <TextBlock Text="{Binding CarModels.Model}" FontSize="14"/>
                                     <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0:C}'}" FontSize="14" Foreground="#E53935"/>
+                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}" FontSize="14" Foreground="#E53935"/>
+
                                     <Button Content="🛒 В корзину"
                                             Style="{StaticResource CustomButtonStyle}"
                                             Width="120"

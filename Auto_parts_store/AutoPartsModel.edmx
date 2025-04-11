@@ -16,6 +16,7 @@
           <Property Name="StockQuantity" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
           <Property Name="CarModelID" Type="int" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CarModels">
           <Key>
@@ -324,6 +325,7 @@
           <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK__PurchaseO__PartI__47DBAE45" FromRole="AutoParts" ToRole="PurchaseOrderDetails" />
           <NavigationProperty Name="SalesDetails" Relationship="Self.FK__SalesDeta__PartI__4E88ABD4" FromRole="AutoParts" ToRole="SalesDetails" />
           <NavigationProperty Name="CarModels" Relationship="Self.FK_AutoParts_CarModels" FromRole="AutoParts" ToRole="CarModels" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CarModels">
           <Key>
@@ -638,6 +640,7 @@
           <EntitySetMapping Name="AutoParts">
             <EntityTypeMapping TypeName="AutoPartsStoreModel.AutoParts">
               <MappingFragment StoreEntitySet="AutoParts">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="PartID" ColumnName="PartID" />
                 <ScalarProperty Name="PartName" ColumnName="PartName" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
