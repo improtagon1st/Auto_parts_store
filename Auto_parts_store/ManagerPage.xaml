@@ -13,12 +13,13 @@
                        Foreground="#3F51B5"
                        Margin="0,0,0,20"
                        HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
             <Button Content="Редактирование автозапчастей"
-        Style="{StaticResource CustomButtonStyle}"
-        Width="200"
-        Margin="0,0,0,20"
-        Click="GoToProductsPage_Click"/>
-
+                Style="{StaticResource CustomButtonStyle}"
+                Click="GoToProductsPage_Click"
+                Width="250"
+                Margin="0,0,10,0"/>
+            </StackPanel>
             <TabControl Height="600">
 
                 <TabItem Header="Автозапчасти">
@@ -59,7 +60,7 @@
 
             </TabControl>
 
-            <Button Content="← Выйти"
+            <Button Content="Выйти"
                     Style="{StaticResource CustomButtonStyle}"
                     Width="150"
                     Margin="0,20,0,0"

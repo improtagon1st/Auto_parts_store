@@ -83,7 +83,7 @@
 
             </TabControl>
 
-            <Button Content="← Выйти"
+            <Button Content="Выйти"
                     Style="{StaticResource CustomButtonStyle}"
                     Width="150"
                     Margin="0,20,0,0"
