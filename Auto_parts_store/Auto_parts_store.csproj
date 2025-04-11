@@ -90,8 +90,12 @@
     <Compile Include="Categories.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ClientPage.xaml.cs">
+      <DependentUpon>ClientPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Entities.cs" />
     <Compile Include="HashHelper.cs" />
+    <Compile Include="ImagePathConverter.cs" />
     <Compile Include="Inventory.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -141,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CashierPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,9 +240,13 @@
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
       <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Images\Parts\ws7_4959.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
