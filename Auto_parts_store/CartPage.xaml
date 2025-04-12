@@ -42,7 +42,6 @@
             <Button Content="← Назад"
                     Style="{StaticResource CustomButtonStyle}"
                     Width="120"
-                    Margin="10,0,0,0"
                     Click="BackButton_Click"/>
         </StackPanel>
     </StackPanel>

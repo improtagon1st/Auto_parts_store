@@ -70,6 +70,7 @@
                                     <TextBlock Text="{Binding Categories.CategoryName}" FontSize="14"/>
                                     <TextBlock Text="{Binding CarModels.Model}" FontSize="14"/>
                                     <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding StockQuantity, StringFormat='На складе {0} шт'}" FontSize="14" Foreground="Green"/>
                                     <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}" FontSize="14" Foreground="#E53935"/>
 
                                     <Button Content="🛒 В корзину"
