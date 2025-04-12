@@ -31,11 +31,8 @@ namespace Auto_parts_store
         {
             using (var db = new AutoPartsStoreEntities())
             {
-                CarMakeComboBox.ItemsSource = db.CarModels
-                    .Select(c => c.Make)
-                    .Distinct()
-                    .OrderBy(m => m)
-                    .ToList();
+                ModelComboBox.ItemsSource = Entities.GetContext().CarModels.ToList();
+                ModelComboBox.DisplayMemberPath = "Model";
             }
         }
 
@@ -59,11 +56,10 @@ namespace Auto_parts_store
                 var query = db.AutoParts
                     .Include(p => p.CarModels)
                     .Where(p => p.StockQuantity > 0);
+                var parts = Entities.GetContext().AutoParts.AsQueryable();
 
-                if (CarMakeComboBox.SelectedItem is string make)
-                {
-                    query = query.Where(p => p.CarModels.Make == make);
-                }
+                if (ModelComboBox.SelectedItem is CarModels selectedModel)
+                    parts = parts.Where(p => p.CarModelID == selectedModel.CarModelID);
 
                 PartsDataGrid.ItemsSource = query.ToList();
             }
@@ -102,7 +98,7 @@ namespace Auto_parts_store
 
         private void ResetFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            CarMakeComboBox.SelectedIndex = -1;
+           
             PartIdSearchBox.Clear();
             LoadParts();
         }
