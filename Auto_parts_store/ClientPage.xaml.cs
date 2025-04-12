@@ -11,6 +11,12 @@ namespace Auto_parts_store
         private Users _user;
         private List<AutoParts> _cart;
 
+        // ✅ Перегрузка конструктора без корзины
+        public ClientPage(MainWindow mainWindow, Users user)
+            : this(mainWindow, user, new List<AutoParts>())
+        {
+        }
+
         public ClientPage(MainWindow mainWindow, Users user, List<AutoParts> cart)
         {
             InitializeComponent();
