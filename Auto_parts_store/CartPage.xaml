@@ -4,32 +4,46 @@
       Title="CartPage"
       Background="#F5F5F5">
 
-    <ScrollViewer>
-        <StackPanel Margin="20">
-            <TextBlock Text="Ваша корзина"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       Foreground="#3F51B5"
-                       Margin="0,0,0,20"
-                       HorizontalAlignment="Center"/>
+    <StackPanel Margin="20">
+        <TextBlock Text="Корзина клиента"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Foreground="#3F51B5"
+                   Margin="0,0,0,20"/>
 
-            <ListView x:Name="CartListView" Margin="0,0,0,20">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="#DDD" BorderThickness="1" Margin="5" Padding="10" CornerRadius="10">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding PartName}" FontSize="16" FontWeight="Bold" Margin="0,0,10,0"/>
-                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}" FontSize="14" Foreground="#E53935"/>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+        <DataGrid x:Name="CartDataGrid"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  Height="300"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding PartID}" Width="60"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding PartName}" Width="*"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="80"/>
+                <DataGridTextColumn Header="Цена за шт." Binding="{Binding Price}" Width="100"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding Total}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Text="Итого:" FontSize="16"/>
+        <TextBlock x:Name="TotalTextBlock"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#E53935"
+                   Margin="0,5"/>
+
+        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+            <Button Content="Оформить заказ"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Width="180"
+                    Click="CompleteOrderButton_Click"/>
 
             <Button Content="← Назад"
                     Style="{StaticResource CustomButtonStyle}"
                     Width="120"
+                    Margin="10,0,0,0"
                     Click="BackButton_Click"/>
         </StackPanel>
-    </ScrollViewer>
+    </StackPanel>
 </Page>
