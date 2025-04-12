@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Data.Entity;
-using System.Collections.Generic;
 
 namespace Auto_parts_store
 {
@@ -40,6 +40,6 @@ namespace Auto_parts_store
             _mainWindow.NavigateTo(new ClientPage(_mainWindow, _currentUser, _cart));
 
         }
-       
+
     }
 }

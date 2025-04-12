@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Auto_parts_store;
 
 namespace Auto_parts_store
 {
@@ -49,14 +41,14 @@ namespace Auto_parts_store
                         switch (user.Roles.RoleName)
                         {
                             case "Administrator":
-                                _mainWindow.NavigateTo(new AdminPage(_mainWindow, user)); 
+                                _mainWindow.NavigateTo(new AdminPage(_mainWindow, user));
                                 break;
                             case "Manager":
                                 ;
                                 _mainWindow.NavigateTo(new ManagerPage(_mainWindow, user));
                                 break;
                             case "Cashier":
-                               _mainWindow.NavigateTo(new CashierPage(_mainWindow, user));
+                                _mainWindow.NavigateTo(new CashierPage(_mainWindow, user));
                                 break;
                             case "Client":
                                 _mainWindow.NavigateTo(new ClientPage(_mainWindow, user, new List<AutoParts>()));

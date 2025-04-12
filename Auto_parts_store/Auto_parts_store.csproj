@@ -254,6 +254,7 @@
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
       <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Logo\Logo.ico" />
     <Resource Include="Images\Parts\Hood_L494_Black.jpg" />
     <Resource Include="Images\Parts\Front_Door_Right_L494_Black.jpg" />
     <Resource Include="Images\Parts\Door_Front_Left_L494._Black.jpg" />
