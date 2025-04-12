@@ -59,7 +59,8 @@ namespace Auto_parts_store
                                _mainWindow.NavigateTo(new CashierPage(_mainWindow, user));
                                 break;
                             case "Client":
-                                _mainWindow.NavigateTo(new ClientPage(_mainWindow, user));
+                                _mainWindow.NavigateTo(new ClientPage(_mainWindow, user, new List<AutoParts>()));
+
                                 break;
                             default:
                                 MessageBox.Show("Неизвестная роль пользователя");

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,12 +9,14 @@ namespace Auto_parts_store
     {
         private MainWindow _mainWindow;
         private Users _user;
+        private List<AutoParts> _cart;
 
-        public ClientPage(MainWindow mainWindow, Users user)
+        public ClientPage(MainWindow mainWindow, Users user, List<AutoParts> cart)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
             _user = user;
+            _cart = cart ?? new List<AutoParts>();
 
             LoadFilters();
             ApplyFilters();
@@ -51,12 +54,16 @@ namespace Auto_parts_store
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button?.Tag is AutoParts part)
+            if (sender is Button button && button.Tag is AutoParts part)
             {
+                _cart.Add(part);
                 MessageBox.Show($"Товар \"{part.PartName}\" добавлен в корзину.");
-                // Тут можно добавить логику добавления в корзину
             }
+        }
+
+        private void ViewCart_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.NavigateTo(new CartPage(_mainWindow, _user, _cart));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
