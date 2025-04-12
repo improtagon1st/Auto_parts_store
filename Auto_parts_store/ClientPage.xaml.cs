@@ -76,5 +76,9 @@ namespace Auto_parts_store
         {
             _mainWindow.NavigateTo(new LoginPage(_mainWindow));
         }
+        private void ViewOrderHistory_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.NavigateTo(new OrderHistoryPage(_mainWindow, _user, _cart));
+        }
     }
 }

@@ -19,15 +19,25 @@
                            Foreground="#3F51B5"
                            VerticalAlignment="Center"
                            DockPanel.Dock="Left"/>
+
+               
+
                 <Button Content="🧺 Корзина"
                         Style="{StaticResource CustomButtonStyle}"
                         Width="120"
                         HorizontalAlignment="Right"
                         Click="ViewCart_Click"
                         DockPanel.Dock="Right"/>
+                
+                <Button Content="История заказов"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Width="150"
+                    HorizontalAlignment="Right"
+                    Click="ViewOrderHistory_Click"
+                    DockPanel.Dock="Right"/>
             </DockPanel>
 
-            <!-- Панель фильтров -->
+            
             <WrapPanel Margin="0,0,0,20">
                 <StackPanel Margin="10">
                     <TextBlock Text="Категория:" Style="{StaticResource LabelStyle}"/>
@@ -75,6 +85,8 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            
+            
             <Button Content="Выйти"
                     Style="{StaticResource CustomButtonStyle}"
                     Width="120"

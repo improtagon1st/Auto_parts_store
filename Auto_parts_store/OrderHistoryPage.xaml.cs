@@ -10,12 +10,14 @@ namespace Auto_parts_store
     {
         private MainWindow _mainWindow;
         private Users _currentUser;
+        private List<AutoParts> _cart;
 
-        public OrderHistoryPage(MainWindow mainWindow, Users currentUser)
+        public OrderHistoryPage(MainWindow mainWindow, Users currentUser, List<AutoParts> cart)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
             _currentUser = currentUser;
+            _cart = cart;
 
             LoadOrderHistory();
         }
@@ -35,8 +37,9 @@ namespace Auto_parts_store
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            new ClientPage(_mainWindow, _currentUser, new List<AutoParts>());
+            _mainWindow.NavigateTo(new ClientPage(_mainWindow, _currentUser, _cart));
 
         }
+       
     }
 }
