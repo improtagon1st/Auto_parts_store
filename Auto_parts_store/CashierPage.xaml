@@ -11,85 +11,80 @@
         </Grid.ColumnDefinitions>
 
         <!-- Левая часть: фильтры, поиск и таблица запчастей -->
-        <StackPanel Grid.Column="0">
+            <StackPanel Grid.Column="0">
 
-            <TextBlock Text="Ассортимент автозапчастей"
+                <TextBlock Text="Ассортимент автозапчастей"
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="#3F51B5"
                        Margin="10"/>
 
-            <!-- Фильтр по марке и поиск по ID -->
-            <WrapPanel Margin="10">
-                <StackPanel Margin="0,0,20,0">
+                <WrapPanel Margin="10">
+                    <StackPanel Margin="0,0,20,0">
                         <StackPanel Margin="10">
                             <TextBlock Text="Модель авто:" Style="{StaticResource LabelStyle}"/>
                             <ComboBox x:Name="ModelComboBox" Width="180" SelectionChanged="CarMakeComboBox_SelectionChanged"/>
                         </StackPanel>
                     </StackPanel>
 
-                <StackPanel>
-                    <TextBlock Text="Поиск по ID:" Style="{StaticResource LabelStyle}"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="PartIdSearchBox" Width="100"/>
-                        <Button Content="Найти"
+                    <StackPanel>
+                        <TextBlock Text="Поиск по ID:" Style="{StaticResource LabelStyle}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="PartIdSearchBox" Width="100"/>
+                            <Button Content="Найти"
                                 Style="{StaticResource CustomButtonStyle}"
                                 Margin="15,11,0,11"
                                 Width="125"
                                 Click="SearchByIdButton_Click"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <Button Content="Сбросить"
+                    <Button Content="Сбросить"
                         Style="{StaticResource CustomButtonStyle}"
                         Margin="20,40,0,10"
                         Width="90"
                         Click="ResetFilterButton_Click"/>
-            </WrapPanel>
+                </WrapPanel>
 
-            <!-- Таблица запчастей -->
-            <DataGrid x:Name="PartsDataGrid"
+                <DataGrid x:Name="PartsDataGrid"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       IsReadOnly="True"
                       Margin="10"
                       SelectionMode="Single"
                       Height="360">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding PartID}" Width="50"/>
-                    <DataGridTextColumn Header="Название" Binding="{Binding PartName}" Width="*"/>
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
-                    <DataGridTextColumn Header="В наличии" Binding="{Binding StockQuantity}" Width="80"/>
-                    <DataGridTextColumn Header="Марка" Binding="{Binding CarModels.Make}" Width="*"/>
-                    <DataGridTextColumn Header="Модель" Binding="{Binding CarModels.Model}" Width="*"/>
-                    <DataGridTextColumn Header="Поколение" Binding="{Binding CarModels.Generation}" Width="*"/>
-                    <DataGridTextColumn Header="Двигатель" Binding="{Binding CarModels.EngineType}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding PartID}" Width="50"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding PartName}" Width="*"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
+                        <DataGridTextColumn Header="В наличии" Binding="{Binding StockQuantity}" Width="80"/>
+                        <DataGridTextColumn Header="Марка" Binding="{Binding CarModels.Make}" Width="*"/>
+                        <DataGridTextColumn Header="Модель" Binding="{Binding CarModels.Model}" Width="*"/>
+                        <DataGridTextColumn Header="Поколение" Binding="{Binding CarModels.Generation}" Width="*"/>
+                        <DataGridTextColumn Header="Двигатель" Binding="{Binding CarModels.EngineType}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-            <!-- Количество и добавление в корзину -->
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock Text="Количество:" VerticalAlignment="Center" Margin="0,0,10,0" Style="{StaticResource LabelStyle}"/>
-                <TextBox x:Name="QuantityTextBox" Width="100"/>
-                <Button Content="Добавить в корзину"
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock Text="Количество:" VerticalAlignment="Center" Margin="0,0,10,0" Style="{StaticResource LabelStyle}"/>
+                    <TextBox x:Name="QuantityTextBox" Width="100"/>
+                    <Button Content="Добавить в корзину"
                         Style="{StaticResource CustomButtonStyle}"
                         Margin="10,11,10,11"
                         Width="180"
                         Click="AddToCartButton_Click"/>
-                
-            </StackPanel>
+
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Button Content=" Выйти"
-         Style="{StaticResource CustomButtonStyle}"
-         Width="120"
-         Margin="10,0,0,0"
-
-         Click="BackButton_Click"/>
+                        Style="{StaticResource CustomButtonStyle}"
+                        Width="120"
+                        Margin="10,0,0,0"
+                        Click="BackButton_Click"/>
                 </StackPanel>
             </StackPanel>
-
-        <!-- Правая часть: корзина и оформление -->
-        <StackPanel Grid.Column="1" Margin="20,0,0,0">
+            
+            <StackPanel Grid.Column="1" Margin="20,0,0,0">
             <TextBlock Text="Корзина"
                        FontSize="20"
                        FontWeight="Bold"

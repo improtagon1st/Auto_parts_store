@@ -11,7 +11,7 @@
 
     <ScrollViewer>
         <StackPanel Margin="20">
-            <!-- Верхняя панель с заголовком и кнопкой корзины -->
+
             <DockPanel Margin="0,0,0,20">
                 <TextBlock Text="Каталог автозапчастей"
                            FontSize="22"
@@ -19,8 +19,6 @@
                            Foreground="#3F51B5"
                            VerticalAlignment="Center"
                            DockPanel.Dock="Left"/>
-
-               
 
                 <Button Content="🧺 Корзина"
                         Style="{StaticResource CustomButtonStyle}"
@@ -30,34 +28,44 @@
                         DockPanel.Dock="Right"/>
                 
                 <Button Content="История заказов"
-                    Style="{StaticResource CustomButtonStyle}"
-                    Width="150"
-                    HorizontalAlignment="Right"
-                    Click="ViewOrderHistory_Click"
-                    DockPanel.Dock="Right"/>
+                        Style="{StaticResource CustomButtonStyle}"
+                        Width="150"
+                        HorizontalAlignment="Right"
+                        Click="ViewOrderHistory_Click"
+                        DockPanel.Dock="Right"/>
             </DockPanel>
 
-            
             <WrapPanel Margin="0,0,0,20">
                 <StackPanel Margin="10">
                     <TextBlock Text="Категория:" Style="{StaticResource LabelStyle}"/>
-                    <ComboBox x:Name="CategoryComboBox" Width="180" SelectionChanged="Filter_Changed"/>
+                    <ComboBox x:Name="CategoryComboBox"
+                              Width="180"
+                              SelectionChanged="Filter_Changed"/>
                 </StackPanel>
+
                 <StackPanel Margin="10">
                     <TextBlock Text="Модель авто:" Style="{StaticResource LabelStyle}"/>
-                    <ComboBox x:Name="ModelComboBox" Width="180" SelectionChanged="Filter_Changed"/>
+                    <ComboBox x:Name="ModelComboBox"
+                              Width="180"
+                              SelectionChanged="Filter_Changed"/>
                 </StackPanel>
+
                 <StackPanel Margin="10">
                     <TextBlock Text="Поиск по названию:" Style="{StaticResource LabelStyle}"/>
-                    <TextBox x:Name="SearchTextBox" Width="200" TextChanged="Filter_Changed"/>
+                    <TextBox x:Name="SearchTextBox"
+                             Width="200"
+                             TextChanged="Filter_Changed"/>
                 </StackPanel>
             </WrapPanel>
 
-            <!-- Список товаров -->
             <ListView x:Name="PartsListView" Margin="0,0,0,20">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="#DDD" BorderThickness="1" Margin="5" Padding="10" CornerRadius="10">
+                        <Border BorderBrush="#DDD"
+                                BorderThickness="1"
+                                Margin="5"
+                                Padding="10"
+                                CornerRadius="10">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="120"
                                        Height="120"
@@ -66,12 +74,22 @@
                                        Margin="0,0,10,0"/>
 
                                 <StackPanel>
-                                    <TextBlock Text="{Binding PartName}" FontSize="16" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Categories.CategoryName}" FontSize="14"/>
-                                    <TextBlock Text="{Binding CarModels.Model}" FontSize="14"/>
-                                    <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray"/>
-                                    <TextBlock Text="{Binding StockQuantity, StringFormat='На складе {0} шт'}" FontSize="14" Foreground="Green"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}" FontSize="14" Foreground="#E53935"/>
+                                    <TextBlock Text="{Binding PartName}"
+                                               FontSize="16"
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Categories.CategoryName}"
+                                               FontSize="14"/>
+                                    <TextBlock Text="{Binding CarModels.Model}"
+                                               FontSize="14"/>
+                                    <TextBlock Text="{Binding Description}"
+                                               FontSize="12"
+                                               Foreground="Gray"/>
+                                    <TextBlock Text="{Binding StockQuantity, StringFormat='На складе {0} шт'}"
+                                               FontSize="14"
+                                               Foreground="Green"/>
+                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}"
+                                               FontSize="14"
+                                               Foreground="#E53935"/>
 
                                     <Button Content="🛒 В корзину"
                                             Style="{StaticResource CustomButtonStyle}"
@@ -86,8 +104,6 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            
-            
             <Button Content="Выйти"
                     Style="{StaticResource CustomButtonStyle}"
                     Width="120"
