@@ -70,6 +70,9 @@
     <Compile Include="AddProductPage.xaml.cs">
       <DependentUpon>AddProductPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddSupplierPage.xaml.cs">
+      <DependentUpon>AddSupplierPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,9 @@
     <Compile Include="Suppliers.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SuppliersPage.xaml.cs">
+      <DependentUpon>SuppliersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>AutoPartsModel.tt</DependentUpon>
     </Compile>
@@ -143,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddProductPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddSupplierPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuppliersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
