@@ -76,14 +76,15 @@ namespace Auto_parts_store
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_user.RoleID == 1) // Админ
+            if (_user.RoleID == 1)
             {
                 _mainWindow.NavigateTo(new AdminPage(_mainWindow, _user));
             }
-            else if (_user.RoleID == 2) // Менеджер
+            else if (_user.RoleID == 2)
             {
                 _mainWindow.NavigateTo(new ManagerPage(_mainWindow, _user));
             }
         }
+
     }
 }

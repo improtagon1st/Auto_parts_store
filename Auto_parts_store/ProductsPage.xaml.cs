@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
@@ -109,6 +110,38 @@ namespace Auto_parts_store
                 }
             }
 
+        }
+
+        private void SearchByIdButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(PartIdSearchBox.Text, out int partId))
+            {
+                using (var db = new AutoPartsStoreEntities())
+                {
+                    var part = db.AutoParts
+                        .Include(p => p.CarModels)
+                        .FirstOrDefault(p => p.PartID == partId);
+
+                    if (part != null)
+                    {
+                        PartsDataGrid.ItemsSource = new List<AutoParts> { part };
+                    }
+                    else
+                    {
+                        MessageBox.Show("Запчасть с таким ID не найдена.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите корректный ID.");
+            }
+        }
+        private void ResetFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            PartIdSearchBox.Clear();
+            LoadParts();
         }
     }
 }
