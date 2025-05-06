@@ -19,7 +19,6 @@
             Click="AddUserButton_Click"
             Width="250"
             Margin="0,0,10,0"/>
-            <!-- отступ справа -->
 
             <Button Content="Редактирование автозапчастей"
             Style="{StaticResource CustomButtonStyle}"
@@ -37,52 +36,42 @@
 
             <TabControl Height="600">
 
-                <!-- Автозапчасти -->
                 <TabItem Header="Автозапчасти">
                     <DataGrid x:Name="AutoPartsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Поставщики -->
                 <TabItem Header="Поставщики">
                     <DataGrid x:Name="SuppliersDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Заказы -->
                 <TabItem Header="Заказы">
                     <DataGrid x:Name="OrdersDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Детали заказов -->
                 <TabItem Header="Детали заказов">
                     <DataGrid x:Name="OrderDetailsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Продажи -->
                 <TabItem Header="Продажи">
                     <DataGrid x:Name="SalesDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Детали продаж -->
                 <TabItem Header="Детали продаж">
                     <DataGrid x:Name="SalesDetailsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Категории -->
                 <TabItem Header="Категории">
                     <DataGrid x:Name="CategoriesDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Модели авто -->
                 <TabItem Header="Модели авто">
                     <DataGrid x:Name="CarModelsDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Запасы -->
                 <TabItem Header="Запасы">
                     <DataGrid x:Name="InventoryDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>
 
-                <!-- Пользователи -->
                 <TabItem Header="Пользователи">
                     <DataGrid x:Name="UsersDataGrid" AutoGenerateColumns="True" IsReadOnly="True"/>
                 </TabItem>

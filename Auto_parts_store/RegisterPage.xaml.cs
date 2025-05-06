@@ -32,55 +32,52 @@ namespace Auto_parts_store
                 string phone = phoneTextBox.Text.Trim();
                 string email = emailTextBox.Text.Trim();
 
-                // Проверка на пустые поля
-                if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password) ||
-                    string.IsNullOrWhiteSpace(confirmPassword) || string.IsNullOrWhiteSpace(fullName) ||
-                    string.IsNullOrWhiteSpace(phone) || string.IsNullOrWhiteSpace(email))
+                if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(email) ||
+                    string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(phone))
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля.");
                     return;
                 }
 
-                // Совпадение паролей
+                if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
+                {
+                    MessageBox.Show("Не все поля паролей заполнены.");
+                    return;
+                }
+
                 if (password != confirmPassword)
                 {
                     MessageBox.Show("Пароли не совпадают.");
                     return;
                 }
 
-                // Валидация телефона
-                if (!Regex.IsMatch(phone, @"^(\+7|8)\d{10}$"))
-                {
-                    MessageBox.Show("Телефон должен быть в формате: +79991234567 или 89991234567.");
-                    return;
-                }
-
-                // Валидация email
                 if (!Regex.IsMatch(email, @"^[\w\.\-]+@[\w\-]+\.[a-z]{2,4}$"))
                 {
                     MessageBox.Show("Введите корректный email.");
                     return;
                 }
 
+                if (!Regex.IsMatch(phone, @"^(\+7|8)\d{10}$"))
+                {
+                    MessageBox.Show("Телефон должен быть в формате: +79991234567 или 89991234567.");
+                    return;
+                }
+
                 using (var db = new AutoPartsStoreEntities())
                 {
-                    // Проверка на уникальность логина
                     if (db.Users.Any(u => u.Username == login))
                     {
                         MessageBox.Show("Пользователь с таким логином уже существует.");
                         return;
                     }
 
-                    // Получаем ID роли Client
                     var clientRole = db.Roles.FirstOrDefault(r => r.RoleName == "Client");
-
                     if (clientRole == null)
                     {
                         MessageBox.Show("Роль 'Client' не найдена в базе данных. Обратитесь к администратору.");
                         return;
                     }
 
-                    // Создаём нового пользователя
                     var newUser = new Users
                     {
                         Username = login,
@@ -103,9 +100,6 @@ namespace Auto_parts_store
                 MessageBox.Show("Ошибка регистрации:\n" + ex.Message);
             }
         }
-
-        // ↓ те же обработчики для плейсхолдера ↓
-
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             var tb = sender as TextBox;
@@ -156,7 +150,6 @@ namespace Auto_parts_store
         }
         private void Phone_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            // Только цифры и + в начале
             Regex regex = new Regex(@"[^0-9+]+");
             e.Handled = regex.IsMatch(e.Text);
         }

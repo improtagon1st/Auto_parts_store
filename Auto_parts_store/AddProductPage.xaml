@@ -14,41 +14,34 @@
                        Margin="0,0,0,20"
                        TextAlignment="Center"/>
 
-            <!-- Название -->
             <TextBlock Text="Название:"/>
             <TextBox x:Name="NameTextBox" Margin="0,0,0,10"
                      Text="{Binding PartName, Mode=TwoWay}"/>
 
-            <!-- Цена -->
             <TextBlock Text="Цена:"/>
             <TextBox x:Name="PriceTextBox" Margin="0,0,0,10"
                      Text="{Binding Price, Mode=TwoWay}"/>
 
-            <!-- Количество -->
             <TextBlock Text="Количество:"/>
             <TextBox x:Name="QuantityTextBox" Margin="0,0,0,10"
                      Text="{Binding StockQuantity, Mode=TwoWay}"/>
 
-            <!-- Описание -->
             <TextBlock Text="Описание:"/>
             <TextBox x:Name="DescriptionTextBox" Margin="0,0,0,10"
                      Text="{Binding Description, Mode=TwoWay}"/>
 
-            <!-- Категория -->
             <TextBlock Text="Категория:"/>
             <ComboBox x:Name="CategoryComboBox"
                       DisplayMemberPath="CategoryName"
                       SelectedValuePath="CategoryID"
                       Margin="0,0,0,10"/>
 
-            <!-- Модель авто -->
             <TextBlock Text="Модель авто:"/>
             <ComboBox x:Name="ModelComboBox"
                       DisplayMemberPath="Model"
                       SelectedValuePath="CarModelID"
                       Margin="0,0,0,10"/>
 
-            <!-- Кнопка сохранения -->
             <Button Content="Сохранить"
                     Width="150"
                     Margin="0,20"

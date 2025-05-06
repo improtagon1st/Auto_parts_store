@@ -10,7 +10,6 @@
             <ColumnDefinition Width="1.2*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Левая часть: фильтры, поиск и таблица запчастей -->
             <StackPanel Grid.Column="0">
 
                 <TextBlock Text="Ассортимент автозапчастей"

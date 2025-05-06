@@ -59,26 +59,24 @@ namespace Auto_parts_store
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Проверка на выбранный элемент
             var selectedPart = PartsDataGrid.SelectedItem as AutoParts;
 
             if (selectedPart == null)
             {
                 MessageBox.Show("Пожалуйста, выберите запчасть для редактирования.");
-                return;  // Прерываем выполнение, если элемент не выбран
+                return;
             }
 
-            // Переход на страницу редактирования с выбранным элементом
-            _mainWindow.NavigateTo(new AddProductPage(selectedPart));  // Передаём выбранный элемент
+            _mainWindow.NavigateTo(new AddProductPage(selectedPart));  
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentUser.RoleID == 1) // Админ
+            if (_currentUser.RoleID == 1)
             {
                 _mainWindow.NavigateTo(new AdminPage(_mainWindow, _currentUser));
             }
-            else if (_currentUser.RoleID == 2) // Менеджер
+            else if (_currentUser.RoleID == 2)
             {
                 _mainWindow.NavigateTo(new ManagerPage(_mainWindow, _currentUser));
             }

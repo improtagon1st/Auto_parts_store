@@ -114,5 +114,11 @@ namespace Auto_parts_store
         {
             _mainWindow.NavigateTo(new SuppliersPage(_mainWindow, _user));
         }
+        private void GoToReportsPage_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.NavigateTo(new ReportsPage(_mainWindow, _user));
+        }
+
+
     }
 }

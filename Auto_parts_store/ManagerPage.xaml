@@ -25,8 +25,14 @@
                     Click="GoToSuppliersPage_Click"
                     Width="250"
                     Margin="0,0,10,0"/>
-          
-        </StackPanel>
+              
+            <Button Content="Отчёты"
+                    Width="200"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Margin="0,0,10,0"
+                    Click="GoToReportsPage_Click"/>
+
+            </StackPanel>
             <TabControl Height="600">
 
                 <TabItem Header="Автозапчасти">

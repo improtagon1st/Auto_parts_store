@@ -21,30 +21,33 @@ namespace Auto_parts_store
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string username = usernameTextBox.Text; // Логин теперь называется Username
+            string username = usernameTextBox.Text;
             string password = passwordBox.Password;
 
-            // Вычисляем хеш пароля в C# перед запросом в базу данных
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Введите логин и пароль!");
+                return;
+            }
+
             string hashedPassword = HashHelper.GetHash(password);
 
             try
             {
-                using (var db = new AutoPartsStoreEntities()) // Используем AutoPartsStoreEntities
+                using (var db = new AutoPartsStoreEntities()) 
                 {
-                    // Теперь выполняем запрос с уже вычисленным хешем пароля
                     var user = db.Users.Include("Roles")
                                        .FirstOrDefault(u => u.Username == username && u.PasswordHash == hashedPassword);
 
                     if (user != null)
                     {
-                        // Авторизация успешна, переход в зависимости от роли
+
                         switch (user.Roles.RoleName)
                         {
                             case "Administrator":
                                 _mainWindow.NavigateTo(new AdminPage(_mainWindow, user));
                                 break;
                             case "Manager":
-                                ;
                                 _mainWindow.NavigateTo(new ManagerPage(_mainWindow, user));
                                 break;
                             case "Cashier":
@@ -52,7 +55,6 @@ namespace Auto_parts_store
                                 break;
                             case "Client":
                                 _mainWindow.NavigateTo(new ClientPage(_mainWindow, user, new List<AutoParts>()));
-
                                 break;
                             default:
                                 MessageBox.Show("Неизвестная роль пользователя");
@@ -69,6 +71,7 @@ namespace Auto_parts_store
             {
                 MessageBox.Show($"Ошибка при подключении к базе данных: {ex.Message}");
             }
+
         }
 
 

@@ -15,7 +15,6 @@ namespace Auto_parts_store
 
             try
             {
-                // Поддержка как для ресурсов проекта, так и внешних файлов
                 if (path.StartsWith("/"))
                     path = path.TrimStart('/');
 
