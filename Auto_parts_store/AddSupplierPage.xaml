@@ -6,35 +6,37 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="30" HorizontalAlignment="Center" Width="400">
+
             <TextBlock Text="Добавление / Редактирование поставщика"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Foreground="#3F51B5"
-                       Margin="0,0,0,20"
+                       FontSize="20" FontWeight="Bold"
+                       Foreground="#3F51B5" Margin="0,0,0,20"
                        TextAlignment="Center"/>
 
             <TextBlock Text="Название:"/>
-            <TextBox x:Name="NameTextBox" Margin="0,0,0,10"/>
+            <TextBox Margin="0,0,0,10"
+                     Text="{Binding SupplierName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Контактное лицо:"/>
-            <TextBox x:Name="ContactNameTextBox" Margin="0,0,0,10"/>
+            <TextBox Margin="0,0,0,10"
+                     Text="{Binding ContactName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Телефон:"/>
-            <TextBox x:Name="PhoneTextBox" Margin="0,0,0,10"/>
+            <TextBox Margin="0,0,0,10"
+                     Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Email:"/>
-            <TextBox x:Name="EmailTextBox" Margin="0,0,0,10"/>
+            <TextBox Margin="0,0,0,10"
+                     Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Адрес:"/>
-            <TextBox x:Name="AddressTextBox" Margin="0,0,0,10"/>
+            <TextBox Margin="0,0,0,10"
+                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Button Content="Сохранить"
-                    Width="150"
-                    Margin="0,20"
+                    Width="150" Margin="0,20"
                     Click="SaveButton_Click"
                     Style="{StaticResource CustomButtonStyle}"/>
-            
-            
+
         </StackPanel>
     </ScrollViewer>
 </Page>

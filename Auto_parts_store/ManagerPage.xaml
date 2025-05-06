@@ -31,6 +31,10 @@
                     Style="{StaticResource CustomButtonStyle}"
                     Margin="0,0,10,0"
                     Click="GoToReportsPage_Click"/>
+                <Button Content="Заказ поставщику"
+        Style="{StaticResource CustomButtonStyle}"
+        Width="220" Margin="0,0,10,0"
+        Click="OpenPurchaseOrderPage_Click"/>
 
             </StackPanel>
             <TabControl Height="600">

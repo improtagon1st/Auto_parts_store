@@ -102,6 +102,9 @@
     <Compile Include="AddProductPage.xaml.cs">
       <DependentUpon>AddProductPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddPurchaseOrderPage.xaml.cs">
+      <DependentUpon>AddPurchaseOrderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddSupplierPage.xaml.cs">
       <DependentUpon>AddSupplierPage.xaml</DependentUpon>
     </Compile>
@@ -184,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddProductPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddPurchaseOrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

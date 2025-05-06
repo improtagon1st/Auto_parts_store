@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 
 
@@ -54,20 +55,22 @@ namespace Auto_parts_store
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.NavigateTo(new AddProductPage(null));
+            _mainWindow.NavigateTo(new AddProductPage(_mainWindow, _currentUser));
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            
             var selectedPart = PartsDataGrid.SelectedItem as AutoParts;
-
             if (selectedPart == null)
             {
                 MessageBox.Show("Пожалуйста, выберите запчасть для редактирования.");
                 return;
             }
 
-            _mainWindow.NavigateTo(new AddProductPage(selectedPart));  
+           
+            _mainWindow.NavigateTo(
+                new AddProductPage(_mainWindow, _currentUser, selectedPart));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -33,20 +33,25 @@ namespace Auto_parts_store
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.NavigateTo(new AddSupplierPage(null));
+            _mainWindow.NavigateTo(new AddSupplierPage(_mainWindow, _user));
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            // выбранный поставщик
             var selected = SuppliersDataGrid.SelectedItem as Suppliers;
+
             if (selected == null)
             {
                 MessageBox.Show("Выберите поставщика для редактирования.");
                 return;
             }
 
-            _mainWindow.NavigateTo(new AddSupplierPage(selected));
+            // открываем страницу редактирования
+            _mainWindow.NavigateTo(
+                new AddSupplierPage(_mainWindow, _user, selected));   // <‑‑ передаём selected
         }
+
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {

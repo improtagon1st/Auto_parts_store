@@ -127,5 +127,11 @@ namespace Auto_parts_store
         {
             _mainWindow.NavigateTo(new SuppliersPage(_mainWindow, _user));
         }
+        private void OpenPurchaseOrderPage_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.NavigateTo(
+                new AddPurchaseOrderPage(_mainWindow, _user));
+        }
+
     }
 }

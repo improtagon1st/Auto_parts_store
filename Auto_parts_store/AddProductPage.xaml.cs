@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -8,82 +10,105 @@ namespace Auto_parts_store
 {
     public partial class AddProductPage : Page
     {
-        private AutoParts _currentProduct;
+        /* --- новые поля --- */
+        private readonly MainWindow _mainWindow;
+        private readonly Users _currentUser;
 
-        public AddProductPage() : this(null) { }
+        private readonly AutoParts _currentProduct;
 
-        public AddProductPage(AutoParts selectedProduct)
+        /* ---------- КОНСТРУКТОРЫ ---------- */
+
+        // для добавления (MainWindow / user приходят с вызывающей страницы)
+        public AddProductPage(MainWindow mw, Users user) : this(mw, user, null) { }
+
+        // для редактирования
+        public AddProductPage(MainWindow mw, Users user, AutoParts selectedProduct)
         {
             InitializeComponent();
+
+            _mainWindow = mw;
+            _currentUser = user;
 
             CategoryComboBox.ItemsSource = Entities.GetContext().Categories.ToList();
             ModelComboBox.ItemsSource = Entities.GetContext().CarModels.ToList();
 
-            if (selectedProduct != null)
-            {
+            _currentProduct = selectedProduct != null
+                ? Entities.GetContext().AutoParts.First(p => p.PartID == selectedProduct.PartID)
+                : new AutoParts();
 
-                _currentProduct = Entities.GetContext().AutoParts
-                    .FirstOrDefault(p => p.PartID == selectedProduct.PartID);
-            }
-            else
-            {
-                _currentProduct = new AutoParts();
-            }
+            DataContext = _currentProduct;          // ← привязка
+        }
 
-            if (_currentProduct != null && _currentProduct.PartID != 0)
+        /* ---------- выбор картинки (осталось как было) ---------- */
+
+        private void BrowseImage_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFileDialog
             {
-                NameTextBox.Text = _currentProduct.PartName;
-                PriceTextBox.Text = _currentProduct.Price.ToString();
-                QuantityTextBox.Text = _currentProduct.StockQuantity.ToString();
-                DescriptionTextBox.Text = _currentProduct.Description;
-                CategoryComboBox.SelectedValue = _currentProduct.CategoryID;
-                ModelComboBox.SelectedValue = _currentProduct.CarModelID;
+                Filter = "Файлы изображений|*.jpg;*.jpeg;*.png;*.bmp"
+            };
+            if (dlg.ShowDialog() == true)
+            {
+                var projDir = AppDomain.CurrentDomain.BaseDirectory;
+                var imgDir = Path.Combine(projDir, "Images", "Parts");
+                Directory.CreateDirectory(imgDir);
+
+                var destFile = Path.Combine(imgDir, Path.GetFileName(dlg.FileName));
+                if (!File.Exists(destFile))
+                    File.Copy(dlg.FileName, destFile);
+
+                ImagePathTextBox.Text = $"/Images/Parts/{Path.GetFileName(destFile)}";
             }
         }
 
+        /* ---------- СОХРАНЕНИЕ ---------- */
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var db = Entities.GetContext();
-            StringBuilder errors = new StringBuilder();
+            var sb = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
-                errors.AppendLine("Введите название.");
-            if (!decimal.TryParse(PriceTextBox.Text, out decimal price))
-                errors.AppendLine("Введите корректную цену.");
-            if (!int.TryParse(QuantityTextBox.Text, out int quantity))
-                errors.AppendLine("Введите корректное количество.");
-            if (CategoryComboBox.SelectedItem == null)
-                errors.AppendLine("Выберите категорию.");
-            if (ModelComboBox.SelectedItem == null)
-                errors.AppendLine("Выберите модель авто.");
+            if (string.IsNullOrWhiteSpace(_currentProduct.PartName))
+                sb.AppendLine("Введите название.");
+            if (_currentProduct.Price <= 0)
+                sb.AppendLine("Введите корректную цену.");
+            if (_currentProduct.StockQuantity < 0)
+                sb.AppendLine("Введите корректное количество.");
+            if (_currentProduct.CategoryID == 0)
+                sb.AppendLine("Выберите категорию.");
+            if (_currentProduct.CarModelID == 0)
+                sb.AppendLine("Выберите модель авто.");
+            if (string.IsNullOrWhiteSpace(_currentProduct.ImagePath))
+                sb.AppendLine("Укажите путь к изображению.");
 
-            if (errors.Length > 0)
+            if (sb.Length > 0)
             {
-                MessageBox.Show(errors.ToString(), "Ошибка");
+                MessageBox.Show(sb.ToString(), "Ошибка");
                 return;
             }
 
-            _currentProduct.PartName = NameTextBox.Text;
-            _currentProduct.Price = price;
-            _currentProduct.StockQuantity = quantity;
-            _currentProduct.Description = DescriptionTextBox.Text;
-            _currentProduct.CategoryID = (int)CategoryComboBox.SelectedValue;
-            _currentProduct.CarModelID = (int)ModelComboBox.SelectedValue;
+            if (_currentProduct.PartID == 0)
+                Entities.GetContext().AutoParts.Add(_currentProduct);
 
             try
             {
-                if (_currentProduct.PartID == 0)
-                {
-                    db.AutoParts.Add(_currentProduct);
-                }
-
-                db.SaveChanges();
+                Entities.GetContext().SaveChanges();
                 MessageBox.Show("Данные успешно сохранены!");
 
-                if (NavigationService != null)
-                    NavigationService.GoBack();
+                /* ---------- НАВИГАЦИЯ ПОСЛЕ СОХРАНЕНИЯ ---------- */
+                if (_mainWindow != null && _currentUser != null)
+                {
+                    if (_currentUser.RoleID == 1)          // администратор
+                        _mainWindow.NavigateTo(new AdminPage(_mainWindow, _currentUser));
+                    else if (_currentUser.RoleID == 2)     // менеджер
+                        _mainWindow.NavigateTo(new ManagerPage(_mainWindow, _currentUser));
+                    else                                   // другие роли
+                        _mainWindow.NavigateTo(new LoginPage(_mainWindow));
+                }
                 else
-                    Window.GetWindow(this)?.Close();
+                {
+                    // fallback
+                    NavigationService?.GoBack();
+                }
             }
             catch (Exception ex)
             {

@@ -7,35 +7,42 @@ namespace Auto_parts_store
 {
     public partial class AddSupplierPage : Page
     {
+        private readonly MainWindow _mainWindow;
+        private readonly Users _currentUser;
+        private readonly Suppliers _currentSupplier;
 
-        private Suppliers _currentSupplier;
+        // Конструктор «добавить»
+        public AddSupplierPage(MainWindow mw, Users user)
+            : this(mw, user, null) { }
 
-        public AddSupplierPage(Suppliers selectedSupplier)
+        // Конструктор «редактировать»
+        public AddSupplierPage(MainWindow mw, Users user, Suppliers selectedSupplier)
         {
             InitializeComponent();
 
-            _currentSupplier = selectedSupplier ?? new Suppliers();
+            _mainWindow = mw;
+            _currentUser = user;
 
-            if (selectedSupplier != null)
-            {
-                NameTextBox.Text = _currentSupplier.SupplierName;
-                ContactNameTextBox.Text = _currentSupplier.ContactName;
-                PhoneTextBox.Text = _currentSupplier.Phone;
-                EmailTextBox.Text = _currentSupplier.Email;
-                AddressTextBox.Text = _currentSupplier.Address;
-            }
+            // либо свежая копия выбранного, либо новый объект
+            _currentSupplier = selectedSupplier != null
+                ? Entities.GetContext().Suppliers
+                           .FirstOrDefault(s => s.SupplierID == selectedSupplier.SupplierID)
+                : new Suppliers();
+
+            // Привязываем объект к XAML‑разметке
+            DataContext = _currentSupplier;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var db = Entities.GetContext();
-            StringBuilder errors = new StringBuilder();
+            var errors = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            if (string.IsNullOrWhiteSpace(_currentSupplier.SupplierName))
                 errors.AppendLine("Введите название.");
-            if (string.IsNullOrWhiteSpace(ContactNameTextBox.Text))
+            if (string.IsNullOrWhiteSpace(_currentSupplier.ContactName))
                 errors.AppendLine("Введите контактное лицо.");
-            if (string.IsNullOrWhiteSpace(PhoneTextBox.Text))
+            if (string.IsNullOrWhiteSpace(_currentSupplier.Phone))
                 errors.AppendLine("Введите телефон.");
 
             if (errors.Length > 0)
@@ -44,26 +51,24 @@ namespace Auto_parts_store
                 return;
             }
 
-            _currentSupplier.SupplierName = NameTextBox.Text;
-            _currentSupplier.ContactName = ContactNameTextBox.Text;
-            _currentSupplier.Phone = PhoneTextBox.Text;
-            _currentSupplier.Email = EmailTextBox.Text;
-            _currentSupplier.Address = AddressTextBox.Text;
-
             try
             {
                 if (_currentSupplier.SupplierID == 0)
-                    db.Suppliers.Add(_currentSupplier);
+                    db.Suppliers.Add(_currentSupplier);   // это новый
 
                 db.SaveChanges();
-                MessageBox.Show("Сохранение прошло успешно!");
-                NavigationService?.GoBack();
+                MessageBox.Show("Данные успешно сохранены!");
+
+                // Возврат на страницу‑список
+                if (_currentUser.RoleID == 1)       // админ
+                    _mainWindow.NavigateTo(new AdminPage(_mainWindow, _currentUser));
+                else                                // менеджер
+                    _mainWindow.NavigateTo(new ManagerPage(_mainWindow, _currentUser));
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show("Ошибка при сохранении: " + ex.Message);
             }
         }
-       
     }
 }

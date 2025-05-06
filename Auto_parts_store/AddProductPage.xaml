@@ -8,46 +8,57 @@
         <StackPanel Margin="30" HorizontalAlignment="Center" Width="400">
 
             <TextBlock Text="Добавление / Редактирование запчасти"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Foreground="#3F51B5"
-                       Margin="0,0,0,20"
-                       TextAlignment="Center"/>
+                       FontSize="20" FontWeight="Bold" Foreground="#3F51B5"
+                       Margin="0,0,0,20" TextAlignment="Center"/>
 
+            <!-- Название -->
             <TextBlock Text="Название:"/>
-            <TextBox x:Name="NameTextBox" Margin="0,0,0,10"
-                     Text="{Binding PartName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding PartName, Mode=TwoWay}" Margin="0,0,0,10"/>
 
+            <!-- Цена -->
             <TextBlock Text="Цена:"/>
-            <TextBox x:Name="PriceTextBox" Margin="0,0,0,10"
-                     Text="{Binding Price, Mode=TwoWay}"/>
+            <TextBox Text="{Binding Price, Mode=TwoWay}" Margin="0,0,0,10"/>
 
+            <!-- Количество -->
             <TextBlock Text="Количество:"/>
-            <TextBox x:Name="QuantityTextBox" Margin="0,0,0,10"
-                     Text="{Binding StockQuantity, Mode=TwoWay}"/>
+            <TextBox Text="{Binding StockQuantity, Mode=TwoWay}" Margin="0,0,0,10"/>
 
+            <!-- Описание -->
             <TextBlock Text="Описание:"/>
-            <TextBox x:Name="DescriptionTextBox" Margin="0,0,0,10"
-                     Text="{Binding Description, Mode=TwoWay}"/>
+            <TextBox Text="{Binding Description, Mode=TwoWay}" Margin="0,0,0,10"/>
 
+            <!-- Категория -->
             <TextBlock Text="Категория:"/>
             <ComboBox x:Name="CategoryComboBox"
+                      ItemsSource="{Binding Categories}"
                       DisplayMemberPath="CategoryName"
                       SelectedValuePath="CategoryID"
+                      SelectedValue="{Binding CategoryID, Mode=TwoWay}"
                       Margin="0,0,0,10"/>
 
+            <!-- Модель авто -->
             <TextBlock Text="Модель авто:"/>
             <ComboBox x:Name="ModelComboBox"
+                      ItemsSource="{Binding CarModels}"
                       DisplayMemberPath="Model"
                       SelectedValuePath="CarModelID"
+                      SelectedValue="{Binding CarModelID, Mode=TwoWay}"
                       Margin="0,0,0,10"/>
 
-            <Button Content="Сохранить"
-                    Width="150"
-                    Margin="0,20"
-                    Click="SaveButton_Click"
-                    Style="{StaticResource CustomButtonStyle}"/>
+            <!-- Путь к изображению -->
+            <TextBlock Text="Путь к изображению:"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBox x:Name="ImagePathTextBox" Width="250"
+                         Text="{Binding ImagePath, Mode=TwoWay}"/>
+                <Button Content="Обзор…" Margin="5,0,0,0"
+                        Click="BrowseImage_Click"/>
+            </StackPanel>
 
+            <!-- Сохранить -->
+            <Button Content="Сохранить"
+                    Width="150" Margin="0,20"
+                    Style="{StaticResource CustomButtonStyle}"
+                    Click="SaveButton_Click"/>
         </StackPanel>
     </ScrollViewer>
 </Page>
