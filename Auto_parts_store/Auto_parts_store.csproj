@@ -314,6 +314,38 @@
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
       <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\Parts\Переднее левое крыло Evoque.jpg" />
+    <Resource Include="Images\Parts\Переднее стекло Defender 130.jpg" />
+    <Resource Include="Images\Parts\Переднее стекло Defender 90.jpg" />
+    <Resource Include="Images\Parts\Переднее стекло Discovery Sport.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Defender 130.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Defender 90.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Discovery Sport.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Evoque.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Freelander.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Velar.jpg" />
+    <Resource Include="Images\Parts\Передняя дверь Freelander.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Defender 130.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Defender 90.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Discovery Sport.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Evoque.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Freelander.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Velar.jpg" />
+    <Resource Include="Images\Parts\Решетка радиатора Velar.jpg" />
+    <Resource Include="Images\Parts\Переднее стекло Range Rover.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Range Rover Sport.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Range Rover.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Range Rover Sport.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Range Rover.jpg" />
+    <Resource Include="Images\Parts\Решетка радиатора Range Rover Sport.jpg" />
+    <Resource Include="Images\Parts\Задняя дверь Discovery.jpg" />
+    <Resource Include="Images\Parts\Капот Defender.jpg" />
+    <Resource Include="Images\Parts\Переднее левое крыло Discovery.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Discovery.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Discovery.jpg" />
+    <Resource Include="Images\Parts\Зеркало боковое Defender.jpg" />
+    <Resource Include="Images\Parts\Передний бампер Defender.jpg" />
+    <Resource Include="Images\Parts\Передняя фара Defender.jpg" />
     <Resource Include="Images\Logo\Logo.ico" />
     <Resource Include="Images\Parts\Hood_L494_Black.jpg" />
     <Resource Include="Images\Parts\Front_Door_Right_L494_Black.jpg" />

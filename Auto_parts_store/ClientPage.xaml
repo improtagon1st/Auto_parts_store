@@ -2,112 +2,118 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:Auto_parts_store"
-      Title="ClientPage"
-      Background="#F5F5F5">
+      Title="ClientPage" Background="#F5F5F5">
 
     <Page.Resources>
         <local:ImagePathConverter x:Key="ImagePathConverter"/>
     </Page.Resources>
 
-    <ScrollViewer>
-        <StackPanel Margin="20">
+    <!-- =========  GRID-КАРКАС  ========= -->
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- панель заголовка + фильтры -->
+            <RowDefinition Height="*"/>
+            <!-- список товаров -->
+            <RowDefinition Height="Auto"/>
+            <!-- кнопка Выйти -->
+        </Grid.RowDefinitions>
 
-            <DockPanel Margin="0,0,0,20">
+        <!-- ====== 1‑я строка  ====== -->
+        <StackPanel Grid.Row="0">
+
+            <!-- верхняя панель -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                 <TextBlock Text="Каталог автозапчастей"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           Foreground="#3F51B5"
-                           VerticalAlignment="Center"
-                           DockPanel.Dock="Left"/>
+                           FontSize="22" FontWeight="Bold"
+                           Foreground="#3F51B5" VerticalAlignment="Center"/>
 
-                <Button Content="🧺 Корзина"
-                        Style="{StaticResource CustomButtonStyle}"
-                        Width="120"
-                        HorizontalAlignment="Right"
-                        Click="ViewCart_Click"
-                        DockPanel.Dock="Right"/>
-                
-                <Button Content="История заказов"
-                        Style="{StaticResource CustomButtonStyle}"
-                        Width="150"
-                        HorizontalAlignment="Right"
-                        Click="ViewOrderHistory_Click"
-                        DockPanel.Dock="Right"/>
-            </DockPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="История заказов"
+                            Style="{StaticResource CustomButtonStyle}"
+                            Width="150" Margin="15,0"
+                            Click="ViewOrderHistory_Click"/>
 
-            <WrapPanel Margin="0,0,0,20">
+                    <Button Content="🧺 Корзина"
+                            Style="{StaticResource CustomButtonStyle}"
+                            Width="120"
+                            Click="ViewCart_Click"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- фильтры -->
+            <WrapPanel>
                 <StackPanel Margin="10">
                     <TextBlock Text="Категория:" Style="{StaticResource LabelStyle}"/>
-                    <ComboBox x:Name="CategoryComboBox"
-                              Width="180"
+                    <ComboBox x:Name="CategoryComboBox" Width="180"
                               SelectionChanged="Filter_Changed"/>
                 </StackPanel>
 
                 <StackPanel Margin="10">
                     <TextBlock Text="Модель авто:" Style="{StaticResource LabelStyle}"/>
-                    <ComboBox x:Name="ModelComboBox"
-                              Width="180"
+                    <ComboBox x:Name="ModelComboBox" Width="180"
                               SelectionChanged="Filter_Changed"/>
                 </StackPanel>
 
                 <StackPanel Margin="10">
                     <TextBlock Text="Поиск по названию:" Style="{StaticResource LabelStyle}"/>
-                    <TextBox x:Name="SearchTextBox"
-                             Width="200"
+                    <TextBox x:Name="SearchTextBox" Width="200"
                              TextChanged="Filter_Changed"/>
                 </StackPanel>
             </WrapPanel>
-
-            <ListView x:Name="PartsListView" Margin="0,0,0,20">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="#DDD"
-                                BorderThickness="1"
-                                Margin="5"
-                                Padding="10"
-                                CornerRadius="10">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="120"
-                                       Height="120"
-                                       Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
-                                       Stretch="UniformToFill"
-                                       Margin="0,0,10,0"/>
-
-                                <StackPanel>
-                                    <TextBlock Text="{Binding PartName}"
-                                               FontSize="16"
-                                               FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Categories.CategoryName}"
-                                               FontSize="14"/>
-                                    <TextBlock Text="{Binding CarModels.Model}"
-                                               FontSize="14"/>
-                                    <TextBlock Text="{Binding Description}"
-                                               FontSize="12"
-                                               Foreground="Gray"/>
-                                    <TextBlock Text="{Binding StockQuantity, StringFormat='На складе {0} шт'}"
-                                               FontSize="14"
-                                               Foreground="Green"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}"
-                                               FontSize="14"
-                                               Foreground="#E53935"/>
-
-                                    <Button Content="🛒 В корзину"
-                                            Style="{StaticResource CustomButtonStyle}"
-                                            Width="120"
-                                            Margin="0,10,0,0"
-                                            Tag="{Binding}"
-                                            Click="AddToCart_Click"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <Button Content="Выйти"
-                    Style="{StaticResource CustomButtonStyle}"
-                    Width="120"
-                    Click="BackButton_Click"/>
         </StackPanel>
-    </ScrollViewer>
+
+        <ListView x:Name="PartsListView"
+          Grid.Row="1"
+          BorderThickness="0"
+          Padding="0"
+          ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid IsItemsHost="True" Columns="3"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Margin" Value="6"/>
+                    <Setter Property="Focusable" Value="False"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="#DDD" BorderThickness="1" CornerRadius="10" Padding="10">
+                        <DockPanel>
+                            <Image Width="110" Height="110"
+                           Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
+                           Stretch="UniformToFill"
+                           Margin="0,0,10,0"
+                           DockPanel.Dock="Left"/>
+                            <StackPanel>
+                                <TextBlock Text="{Binding PartName}" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Categories.CategoryName}" FontSize="14"/>
+                                <TextBlock Text="{Binding CarModels.Model}" FontSize="14"/>
+                                <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray"/>
+                                <TextBlock Text="{Binding StockQuantity, StringFormat='На складе {0} шт'}" FontSize="14" Foreground="Green"/>
+                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}" FontSize="14" Foreground="#E53935"/>
+                                <Button Content="🛒 В корзину"
+                                Style="{StaticResource CustomButtonStyle}"
+                                Width="120" Margin="0,10,0,0"
+                                Tag="{Binding}"
+                                Click="AddToCart_Click"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- ====== 3‑я строка  ====== -->
+        <Button Grid.Row="2"
+                Content="Выйти"
+                Style="{StaticResource CustomButtonStyle}"
+                Width="120"
+                HorizontalAlignment="Left"
+                Click="BackButton_Click"/>
+    </Grid>
 </Page>
