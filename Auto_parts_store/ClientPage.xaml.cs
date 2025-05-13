@@ -7,19 +7,18 @@ namespace Auto_parts_store
 {
     public partial class ClientPage : Page
     {
-        private MainWindow _mainWindow;
-        private Users _user;
-        private List<AutoParts> _cart;
+        private readonly MainWindow _mainWindow;
+        private readonly Users _user;
+        private readonly List<AutoParts> _cart;
 
-       
+        // ──────────── КОНСТРУКТОРЫ
         public ClientPage(MainWindow mainWindow, Users user)
-            : this(mainWindow, user, new List<AutoParts>())
-        {
-        }
+            : this(mainWindow, user, new List<AutoParts>()) { }
 
         public ClientPage(MainWindow mainWindow, Users user, List<AutoParts> cart)
         {
             InitializeComponent();
+
             _mainWindow = mainWindow;
             _user = user;
             _cart = cart ?? new List<AutoParts>();
@@ -28,6 +27,20 @@ namespace Auto_parts_store
             ApplyFilters();
         }
 
+        // ──────────── Обновление при возврате на страницу
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            bool becameVisible = (bool)e.NewValue;          // ← без C#‑8 pattern
+            if (!becameVisible) return;
+
+            var ctx = Entities.GetContext();
+            foreach (var entry in ctx.ChangeTracker.Entries())
+                entry.Reload();
+
+            ApplyFilters();     // перерисовать список
+        }
+
+        // ──────────── Фильтры
         private void LoadFilters()
         {
             CategoryComboBox.ItemsSource = Entities.GetContext().Categories.ToList();
@@ -41,11 +54,14 @@ namespace Auto_parts_store
         {
             var parts = Entities.GetContext().AutoParts.AsQueryable();
 
-            if (CategoryComboBox.SelectedItem is Categories selectedCategory)
-                parts = parts.Where(p => p.CategoryID == selectedCategory.CategoryID);
+            var cat = CategoryComboBox.SelectedItem as Categories;
+            var mdl = ModelComboBox.SelectedItem as CarModels;
 
-            if (ModelComboBox.SelectedItem is CarModels selectedModel)
-                parts = parts.Where(p => p.CarModelID == selectedModel.CarModelID);
+            if (cat != null)
+                parts = parts.Where(p => p.CategoryID == cat.CategoryID);
+
+            if (mdl != null)
+                parts = parts.Where(p => p.CarModelID == mdl.CarModelID);
 
             if (!string.IsNullOrWhiteSpace(SearchTextBox.Text))
                 parts = parts.Where(p => p.PartName.Contains(SearchTextBox.Text));
@@ -53,32 +69,29 @@ namespace Auto_parts_store
             PartsListView.ItemsSource = parts.ToList();
         }
 
-        private void Filter_Changed(object sender, RoutedEventArgs e)
-        {
-            ApplyFilters();
-        }
+        private void Filter_Changed(object sender, RoutedEventArgs e) => ApplyFilters();
 
+        // ──────────── «В корзину»
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is AutoParts part)
+            var btn = sender as Button;
+            var part = btn != null ? btn.Tag as AutoParts : null;   // ← без property‑pattern
+
+            if (part != null)
             {
                 _cart.Add(part);
-                MessageBox.Show($"Товар \"{part.PartName}\" добавлен в корзину.");
+                MessageBox.Show($"Товар «{part.PartName}» добавлен в корзину.");
             }
         }
 
-        private void ViewCart_Click(object sender, RoutedEventArgs e)
-        {
+        // ──────────── Навигация
+        private void ViewCart_Click(object sender, RoutedEventArgs e) =>
             _mainWindow.NavigateTo(new CartPage(_mainWindow, _user, _cart));
-        }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            _mainWindow.NavigateTo(new LoginPage(_mainWindow));
-        }
-        private void ViewOrderHistory_Click(object sender, RoutedEventArgs e)
-        {
+        private void ViewOrderHistory_Click(object sender, RoutedEventArgs e) =>
             _mainWindow.NavigateTo(new OrderHistoryPage(_mainWindow, _user, _cart));
-        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e) =>
+            _mainWindow.NavigateTo(new LoginPage(_mainWindow));
     }
 }
