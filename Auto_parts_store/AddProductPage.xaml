@@ -11,23 +11,17 @@
                        FontSize="20" FontWeight="Bold" Foreground="#3F51B5"
                        Margin="0,0,0,20" TextAlignment="Center"/>
 
-            <!-- Название -->
             <TextBlock Text="Название:"/>
             <TextBox Text="{Binding PartName, Mode=TwoWay}" Margin="0,0,0,10"/>
 
-            <!-- Цена -->
             <TextBlock Text="Цена:"/>
-            <TextBox Text="{Binding Price, Mode=TwoWay}" Margin="0,0,0,10"/>
 
-            <!-- Количество -->
             <TextBlock Text="Количество:"/>
             <TextBox Text="{Binding StockQuantity, Mode=TwoWay}" Margin="0,0,0,10"/>
 
-            <!-- Описание -->
             <TextBlock Text="Описание:"/>
             <TextBox Text="{Binding Description, Mode=TwoWay}" Margin="0,0,0,10"/>
 
-            <!-- Категория -->
             <TextBlock Text="Категория:"/>
             <ComboBox x:Name="CategoryComboBox"
                       ItemsSource="{Binding Categories}"
@@ -36,7 +30,6 @@
                       SelectedValue="{Binding CategoryID, Mode=TwoWay}"
                       Margin="0,0,0,10"/>
 
-            <!-- Модель авто -->
             <TextBlock Text="Модель авто:"/>
             <ComboBox x:Name="ModelComboBox"
                       ItemsSource="{Binding CarModels}"
@@ -45,7 +38,6 @@
                       SelectedValue="{Binding CarModelID, Mode=TwoWay}"
                       Margin="0,0,0,10"/>
 
-            <!-- Путь к изображению -->
             <TextBlock Text="Путь к изображению:"/>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBox x:Name="ImagePathTextBox" Width="250"
@@ -54,7 +46,6 @@
                         Click="BrowseImage_Click"/>
             </StackPanel>
 
-            <!-- Сохранить -->
             <Button Content="Сохранить"
                     Width="150" Margin="0,20"
                     Style="{StaticResource CustomButtonStyle}"

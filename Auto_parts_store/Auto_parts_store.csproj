@@ -294,6 +294,9 @@
     <None Include="AutoPartsModel.edmx.diagram">
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
     </None>
+    <None Include="bin\Debug\Auto_parts_store.exe.config" />
+    <None Include="bin\Debug\HelpFiles.chm" />
+    <None Include="bin\Debug\Текущие остатки.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -314,6 +317,31 @@
       <DependentUpon>AutoPartsModel.edmx</DependentUpon>
       <LastGenOutput>AutoPartsModel.cs</LastGenOutput>
     </Content>
+    <Content Include="bin\Debug\Auto_parts_store.exe" />
+    <Content Include="bin\Debug\Auto_parts_store.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Resource Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Resource Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\EPPlus.dll" />
+    <Content Include="bin\Debug\EPPlus.Interfaces.dll" />
+    <Content Include="bin\Debug\EPPlus.System.Drawing.dll" />
+    <Resource Include="bin\Debug\EPPlus.xml" />
+    <Content Include="bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll" />
+    <Resource Include="bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml" />
+    <Content Include="bin\Debug\ru\EntityFramework.resources.dll" />
+    <Content Include="bin\Debug\ru\EntityFramework.SqlServer.resources.dll" />
+    <Content Include="bin\Debug\System.Buffers.dll" />
+    <Resource Include="bin\Debug\System.Buffers.xml" />
+    <Content Include="bin\Debug\System.ComponentModel.Annotations.dll" />
+    <Content Include="bin\Debug\System.Memory.dll" />
+    <Resource Include="bin\Debug\System.Memory.xml" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.dll" />
+    <Resource Include="bin\Debug\System.Numerics.Vectors.xml" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Resource Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="bin\Debug\System.Security.Cryptography.Xml.dll" />
+    <Resource Include="bin\Debug\System.Security.Cryptography.Xml.xml" />
     <Resource Include="Images\Parts\Переднее левое крыло Evoque.jpg" />
     <Resource Include="Images\Parts\Переднее стекло Defender 130.jpg" />
     <Resource Include="Images\Parts\Переднее стекло Defender 90.jpg" />
@@ -354,6 +382,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\Debug\Images\Parts\" />
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

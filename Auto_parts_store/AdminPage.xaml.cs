@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -131,6 +132,17 @@ namespace Auto_parts_store
         {
             _mainWindow.NavigateTo(
                 new AddPurchaseOrderPage(_mainWindow, _user));
+        }
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("help.chm"); // если в bin/Debug
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось открыть справку. Убедитесь, что файл help.chm находится в папке проекта.");
+            }
         }
 
     }

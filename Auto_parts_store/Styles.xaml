@@ -9,6 +9,10 @@
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
     <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource LightGray}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="White" />
+    <Style x:Key="RightAlignStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
 
     <Style x:Key="CustomButtonStyle" TargetType="Button">
         <Setter Property="FontSize" Value="16"/>

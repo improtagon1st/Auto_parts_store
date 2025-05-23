@@ -11,7 +11,6 @@ namespace Auto_parts_store
         private readonly Users _user;
         private readonly List<AutoParts> _cart;
 
-        // ──────────── КОНСТРУКТОРЫ
         public ClientPage(MainWindow mainWindow, Users user)
             : this(mainWindow, user, new List<AutoParts>()) { }
 
@@ -27,20 +26,19 @@ namespace Auto_parts_store
             ApplyFilters();
         }
 
-        // ──────────── Обновление при возврате на страницу
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            bool becameVisible = (bool)e.NewValue;          // ← без C#‑8 pattern
+            bool becameVisible = (bool)e.NewValue;          
             if (!becameVisible) return;
 
             var ctx = Entities.GetContext();
             foreach (var entry in ctx.ChangeTracker.Entries())
                 entry.Reload();
 
-            ApplyFilters();     // перерисовать список
+            ApplyFilters();  
         }
 
-        // ──────────── Фильтры
+
         private void LoadFilters()
         {
             CategoryComboBox.ItemsSource = Entities.GetContext().Categories.ToList();
@@ -71,11 +69,10 @@ namespace Auto_parts_store
 
         private void Filter_Changed(object sender, RoutedEventArgs e) => ApplyFilters();
 
-        // ──────────── «В корзину»
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            var part = btn != null ? btn.Tag as AutoParts : null;   // ← без property‑pattern
+            var part = btn != null ? btn.Tag as AutoParts : null;  
 
             if (part != null)
             {
@@ -84,7 +81,6 @@ namespace Auto_parts_store
             }
         }
 
-        // ──────────── Навигация
         private void ViewCart_Click(object sender, RoutedEventArgs e) =>
             _mainWindow.NavigateTo(new CartPage(_mainWindow, _user, _cart));
 
